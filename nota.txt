@@ -1,21 +1,29 @@
-saringan talasemia
+TRAINING INFO
+-------------------
+tkh: 05 - 06, 19 - 20 Sep. 2018
+Sistem : Saringan Talasemia (SST)
 
+TECHNOLOGIES USED
+---------------------------
 HTML
+
 PHP
+
 Framework
 - Yii [x]
   - www.yiiframework.com
-- Laravel
-- Codeigniter
+- alt :Laravel, Codeigniter
+
 CSS
  - Twitter bootstrap
-  - www.getbootstrap.com
+ - www.getbootstrap.com
+
 Javascript
  - jQuery
 
-
 WAMP [x]
  - installer php, mysql, apache
+ - alt: XAMPP/MAMP/Laracon/
 
 IDE / editor
 - netbeans [x]
@@ -32,24 +40,26 @@ VSS - versioning System / GIT
 - GitLab
 - BitBucket
 
-XAMPP/ WAMP/MAMP/Laracon/
-
-
+YII 2 Framework - intro
+--------------------------------------------
 MVC = Model, View, Controller
  - falsafah / idea / dev. pattern
 
 Controller (c)
- - master mind
+ - class
+ - master mind / logic
  - every request lalu controller
  - controller then call view / model
 
-View
+View (v)
 - dlm folder views
 - sub folder yg ikut nama controller i.e hello utk HelloController
+- HTML / Javascript / CSS / minima PHP
 
-
-
-
+Model (m)
+- data
+- class
+- 1 model mewakili 1 table
 
 
 
