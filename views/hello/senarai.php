@@ -6,8 +6,8 @@
     </tr>
     <?php
     foreach ($dat as $u) {
-        // $u = mewakili satu rekod dlm table user
-        // name nama col dlm table tersebut
+        // $u   = mewakili satu rekod dlm table user
+        // name = nama col dlm table tersebut
     ?>
     <tr>
         <td></td>
