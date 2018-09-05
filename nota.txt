@@ -61,6 +61,21 @@ Model (m)
 - class
 - 1 model mewakili 1 table
 
+FORM
+----------------------------------
+- pendaftaran
+ - indek
+- ujian saringan
+- ujian pengesahan
+- diagnosis akhir
+
+SECURITY
+---------------
+- CSRF = cross site request forgery
+- <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
+
+
+
 
 
 
