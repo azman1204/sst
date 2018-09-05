@@ -1,0 +1,56 @@
+saringan talasemia
+
+HTML
+PHP
+Framework
+- Yii [x]
+  - www.yiiframework.com
+- Laravel
+- Codeigniter
+CSS
+ - Twitter bootstrap
+  - www.getbootstrap.com
+Javascript
+ - jQuery
+
+
+WAMP [x]
+ - installer php, mysql, apache
+
+IDE / editor
+- netbeans [x]
+- https://netbeans.org/
+- alt : Atom, Bracket, Sublime, Dreamweaver, Eclipse,
+
+MySQL
+- SQL Yog [x]
+- alt : phpmyadmin, navicat, mysql Workbench, Heidi SQL
+- PHP Myadmin (web)
+
+VSS - versioning System / GIT
+- Github
+- GitLab
+- BitBucket
+
+XAMPP/ WAMP/MAMP/Laracon/
+
+
+MVC = Model, View, Controller
+ - falsafah / idea / dev. pattern
+
+Controller (c)
+ - master mind
+ - every request lalu controller
+ - controller then call view / model
+
+View
+- dlm folder views
+- sub folder yg ikut nama controller i.e hello utk HelloController
+
+
+
+
+
+
+
+
