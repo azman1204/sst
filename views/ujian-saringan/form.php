@@ -1,11 +1,11 @@
-<legend>Pendaftaran Saringan</legend>
+<legend>Keputusan ujian Saringan</legend>
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" href="#">Pendaftaran</a>
+    <a class="nav-link" href="index.php?r=pendaftaran/form">Pendaftaran</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="index.php?r=ujian-saringan/form">Ujian Saringan</a>
+    <a class="nav-link active" href="#">Ujian Saringan</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Ujian Pengesahan</a>
@@ -22,12 +22,13 @@ if (isset($salah)) {
     }
 }
 ?>
-<form method="post" action="index.php?r=pendaftaran/save">
+
+<form method="post" action="index.php?r=ujian-saringan/save">
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
     <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
-    Nama : <input type="text" name="nama" value="<?= $dat->nama ?>">
+    HB : <input type="text" name="hb" value="<?= $dat->hb ?>">
     <br>
-    No KP : <input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>">
+    MCH : <input type="text" name="mch" value="<?= $dat->mch ?>">
     <br>
     <input type="submit" value="Simpan">
 </form>

@@ -3,6 +3,22 @@ TRAINING INFO
 tkh: 05 - 06, 19 - 20 Sep. 2018
 Sistem : Saringan Talasemia (SST)
 
+4 kategori pengguna sistem:
+1. nurse
+ - klinik
+ - key-in dan view data klinik dia shj
+
+2. pkd
+ - daerah
+ - view daerah dia shj
+
+3. jkn
+ - Jab Kesihatan Negeri
+ - view semua
+
+4. Sys admin
+ - create user
+
 TECHNOLOGIES USED
 ---------------------------
 HTML
@@ -74,8 +90,15 @@ SECURITY
 - CSRF = cross site request forgery
 - <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
 
+CRUD = Create, Retrieve, Update, Delete
 
-
+VALIDATION
+--------------------
+1. Client-side (Javascript/jquery)
+ - good to have
+2. Server-side (PHP/Yii)
+ - wajib
+- guna both = terbaik
 
 
 

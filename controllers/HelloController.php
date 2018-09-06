@@ -2,6 +2,12 @@
 namespace app\controllers;
 
 class HelloController extends \yii\web\Controller {
+    function actionTest() {
+        $ujian = new \app\models\UjianSaringan();
+        $ujian->id_pendaftaran = 1;
+        $ujian->save();
+    }
+    
     // http://localhost/sst/web/index.php?r=hello/world
     // r = route
     // hello = HelloController
