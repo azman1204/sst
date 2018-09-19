@@ -71,8 +71,8 @@ if (isset($salah)) {
             <?= Html::dropDownList('kump_etnik', '', $kump_etnik, ['class'=>'form-control']) ?>
         </div>
         <div class="col col-sm-2">Pecahan Etnik</div>
-        <div class="col col-sm">
-            <?= Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']) ?>
+        <div class="col col-sm" id="my-etnik">
+            
         </div>
     </div>
     <div class="row">
@@ -88,7 +88,7 @@ if (isset($salah)) {
 $(function() {
     $('[name=kump_etnik]').change(function() {
         var val = $(this).val();
-        alert(val);
+        $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val);
     });
 });
 </script>

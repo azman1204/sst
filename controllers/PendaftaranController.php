@@ -15,13 +15,18 @@ class PendaftaranController extends \yii\web\Controller {
         
         $etnik = KumpEtnik::find()->all();
         $arr['kump_etnik'] = ArrayHelper::map($etnik, 'id', 'nama');
-        
-        $pecahan = PecahanEtnik::find()->all();
-        $arr['pecahan_etnik'] = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
-        
         return $this->render('form', $arr);
     }
     
+    // called by AJAX
+    function actionPecahan($id) {
+        $pecahan = PecahanEtnik::find()->where(['id_etnik' => $id])->all();
+        $pecahan_etnik = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
+        echo \yii\helpers\Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']);
+        //echo "test...$id";
+    }
+
+
     // insert data ke table pendaftaran
     function actionSave() {
         $id = $_POST['id'];
