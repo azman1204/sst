@@ -9,13 +9,17 @@ use app\models\PecahanEtnik;
 class PendaftaranController extends \yii\web\Controller {
     // display form pendaftaran
     function actionForm() {
+        $arr = $this->data();
         $arr['dat'] = new Pendaftaran();
+        return $this->render('form', $arr);
+    }
+    
+    function data() {
         $sek = Sekolah::find()->all();
         $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
-        
         $etnik = KumpEtnik::find()->all();
         $arr['kump_etnik'] = ArrayHelper::map($etnik, 'id', 'nama');
-        return $this->render('form', $arr);
+        return $arr;
     }
     
     // called by AJAX
@@ -49,7 +53,10 @@ class PendaftaranController extends \yii\web\Controller {
             // validation ko
             // show err msg, show ori form
             $err = $p->errors; // return array of errors
-            return $this->render('form', ['dat' => $p, 'salah' => $err]);
+            $arr = $this->data();
+            $arr['dat'] = $p;
+            $arr['salah'] = $err;
+            return $this->render('form', $arr);
         }
     }
     
