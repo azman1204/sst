@@ -16,6 +16,28 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`sst` /*!40100 DEFAULT CHARACTER SET lat
 
 USE `sst`;
 
+/*Table structure for table `klinik_kesihatan` */
+
+DROP TABLE IF EXISTS `klinik_kesihatan`;
+
+CREATE TABLE `klinik_kesihatan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) DEFAULT NULL,
+  `id_pkd` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+/*Table structure for table `klinik_sekolah` */
+
+DROP TABLE IF EXISTS `klinik_sekolah`;
+
+CREATE TABLE `klinik_sekolah` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_klinik` int(11) DEFAULT NULL,
+  `id_sekolah` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 /*Table structure for table `pendaftaran` */
 
 DROP TABLE IF EXISTS `pendaftaran`;
@@ -42,12 +64,16 @@ CREATE TABLE `pendaftaran` (
   UNIQUE KEY `unik` (`nokp`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
-/*Data for the table `pendaftaran` */
+/*Table structure for table `sekolah` */
 
-insert  into `pendaftaran`(`id`,`nama`,`nokp`,`kebenaran`,`alamat`,`tel`,`jantina`,`tkh_lahir`,`umur`,`id_sekolah`,`id_klinik`,`kump_etnik`,`pecahan_etnik`,`created_dt`,`created_by`,`updated_dt`,`updated_by`) values 
-(1,'azman','1234',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-05 15:18:05',NULL,NULL,NULL),
-(5,'azman','123456',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-06 09:54:26',NULL,NULL,NULL),
-(4,'azman bin zakaria','123467',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-06 09:53:39',NULL,NULL,NULL);
+DROP TABLE IF EXISTS `sekolah`;
+
+CREATE TABLE `sekolah` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) DEFAULT NULL,
+  `alamat` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `ujian_saringan` */
 
@@ -71,13 +97,6 @@ CREATE TABLE `ujian_saringan` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-/*Data for the table `ujian_saringan` */
-
-insert  into `ujian_saringan`(`id`,`id_pendaftaran`,`tkh_ujian`,`hb`,`mch`,`mcv`,`mchc`,`rdw`,`rbc`,`id_diag_sementara`,`created_by`,`created_dt`,`updated_by`,`updated_dt`) values 
-(1,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-06 15:20:40',NULL,NULL),
-(5,4,NULL,33.00,44.00,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-06 17:03:57',NULL,NULL),
-(4,5,NULL,99.00,99.00,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-06 17:03:37',NULL,NULL);
-
 /*Table structure for table `user` */
 
 DROP TABLE IF EXISTS `user`;
@@ -89,12 +108,6 @@ CREATE TABLE `user` (
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
-/*Data for the table `user` */
-
-insert  into `user`(`id`,`user_id`,`pwd`,`name`) values 
-(1,'azman','1234','Azman bin Zakaria'),
-(2,'abu','1234','Abu Hassan');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

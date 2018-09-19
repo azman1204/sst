@@ -31,21 +31,27 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col col-sm-2">Kebenaran Bertulis</div>
-        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm">
+            <input type="radio" name="kebenaran" value="Y" checked> YA
+            <input type="radio" name="kebenaran" value="T"> TIDAK
+        </div>
         <div class="col col-sm-2">Alamat</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm"><textarea class="form-control" name="alamat"></textarea></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Tel</div>
         <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
         <div class="col col-sm-2">Jantina</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm">
+            <input type="radio" name="jantina" value="L"> LELAKI
+            <input type="radio" name="jantina" value="P"> PEREMPUAN
+        </div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Tarikh Lahir</div>
-        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="date" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
         <div class="col col-sm-2">Umur</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control" disabled></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Klinik Kesihatan</div>
