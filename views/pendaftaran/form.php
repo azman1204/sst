@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Html;
+?>
+
 <legend>Pendaftaran Saringan</legend>
 
 <ul class="nav nav-tabs">
@@ -57,7 +61,9 @@ if (isset($salah)) {
         <div class="col col-sm-2">Klinik Kesihatan</div>
         <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
         <div class="col col-sm-2">Nama Sekolah</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm">
+            <?= Html::dropDownList('id_sekolah', '', $sek) ?>
+        </div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Etnik</div>

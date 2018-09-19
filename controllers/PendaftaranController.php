@@ -6,6 +6,8 @@ class PendaftaranController extends \yii\web\Controller {
     // display form pendaftaran
     function actionForm() {
         $arr['dat'] = new Pendaftaran();
+        $sek = \app\models\Sekolah::find()->all();
+        $arr['sek'] = \yii\helpers\ArrayHelper::map($sek, 'id', 'nama');
         return $this->render('form', $arr);
     }
     
