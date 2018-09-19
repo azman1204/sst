@@ -72,10 +72,10 @@ class PendaftaranController extends \yii\web\Controller {
     }
     
     // called by AJAX
-    function actionPecahan($id) {
+    function actionPecahan($id, $id_pecahan) {
         $pecahan = PecahanEtnik::find()->where(['id_etnik' => $id])->all();
         $pecahan_etnik = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
-        echo \yii\helpers\Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']);
+        echo \yii\helpers\Html::dropDownList('pecahan_etnik', $id_pecahan, $pecahan_etnik, ['class'=>'form-control']);
         //echo "test...$id";
     }
     

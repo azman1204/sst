@@ -36,19 +36,19 @@ if (isset($salah)) {
     <div class="row">
         <div class="col col-sm-2">Kebenaran Bertulis</div>
         <div class="col col-sm">
-            <input type="radio" name="kebenaran" value="Y" checked> YA
-            <input type="radio" name="kebenaran" value="T"> TIDAK
+            <input type="radio" name="kebenaran" value="Y" <?= $dat->kebenaran === 'Y' ? 'checked' : '' ?>> YA
+            <input type="radio" name="kebenaran" value="T" <?= $dat->kebenaran === 'T' ? 'checked' : '' ?>> TIDAK
         </div>
         <div class="col col-sm-2">Alamat</div>
-        <div class="col col-sm"><textarea class="form-control" name="alamat"></textarea></div>
+        <div class="col col-sm"><textarea class="form-control" name="alamat"><?= $dat->alamat ?></textarea></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Tel</div>
         <div class="col col-sm"><input type="text" name="tel" value="<?= $dat->tel ?>" class="form-control"></div>
         <div class="col col-sm-2">Jantina</div>
         <div class="col col-sm">
-            <input type="radio" name="jantina" value="L"> LELAKI
-            <input type="radio" name="jantina" value="P"> PEREMPUAN
+            <input type="radio" name="jantina" value="L" <?= $dat->jantina === 'L' ? 'checked' : '' ?>> LELAKI
+            <input type="radio" name="jantina" value="P" <?= $dat->jantina === 'P' ? 'checked' : '' ?>> PEREMPUAN
         </div>
     </div>
     <div class="row">
@@ -68,7 +68,7 @@ if (isset($salah)) {
     <div class="row">
         <div class="col col-sm-2">Etnik</div>
         <div class="col col-sm">
-            <?= Html::dropDownList('kump_etnik', '', $kump_etnik, ['class'=>'form-control']) ?>
+            <?= Html::dropDownList('kump_etnik', $dat->kump_etnik, $kump_etnik, ['class'=>'form-control']) ?>
         </div>
         <div class="col col-sm-2">Pecahan Etnik</div>
         <div class="col col-sm" id="my-etnik"></div>
@@ -86,8 +86,11 @@ if (isset($salah)) {
 $(function() {
     $('[name=kump_etnik]').change(function() {
         var val = $(this).val();
-        $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val);
+        $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val + 
+                '&id_pecahan=<?= $dat->pecahan_etnik ?>');
     });
+    
+    $('[name=kump_etnik]').trigger('change');
 });
 </script>
 
