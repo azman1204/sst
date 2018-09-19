@@ -62,14 +62,18 @@ if (isset($salah)) {
         <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
         <div class="col col-sm-2">Nama Sekolah</div>
         <div class="col col-sm">
-            <?= Html::dropDownList('id_sekolah', '', $sek) ?>
+            <?= Html::dropDownList('id_sekolah', '', $sek, ['class'=>'form-control']) ?>
         </div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Etnik</div>
-        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm">
+            <?= Html::dropDownList('kump_etnik', '', $kump_etnik, ['class'=>'form-control']) ?>
+        </div>
         <div class="col col-sm-2">Pecahan Etnik</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm">
+            <?= Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']) ?>
+        </div>
     </div>
     <div class="row">
         <div class="col col-sm-2"></div>

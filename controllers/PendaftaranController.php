@@ -1,13 +1,24 @@
 <?php
 namespace app\controllers;
 use app\models\Pendaftaran; // import / load
+use yii\helpers\ArrayHelper;
+use app\models\Sekolah;
+use app\models\KumpEtnik;
+use app\models\PecahanEtnik;
 
 class PendaftaranController extends \yii\web\Controller {
     // display form pendaftaran
     function actionForm() {
         $arr['dat'] = new Pendaftaran();
-        $sek = \app\models\Sekolah::find()->all();
-        $arr['sek'] = \yii\helpers\ArrayHelper::map($sek, 'id', 'nama');
+        $sek = Sekolah::find()->all();
+        $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
+        
+        $etnik = KumpEtnik::find()->all();
+        $arr['kump_etnik'] = ArrayHelper::map($etnik, 'id', 'nama');
+        
+        $pecahan = PecahanEtnik::find()->all();
+        $arr['pecahan_etnik'] = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
+        
         return $this->render('form', $arr);
     }
     
