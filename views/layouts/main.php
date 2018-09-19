@@ -4,6 +4,7 @@
         <title>Sistem Saringan Talasemia (SST)</title>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/global.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery-3.2.1.min.js"></script>
     </head>
     <body>
         <div id="xwrapper">

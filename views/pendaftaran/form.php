@@ -84,6 +84,15 @@ if (isset($salah)) {
     <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
 </form>
 
+<script>
+$(function() {
+    $('[name=kump_etnik]').change(function() {
+        var val = $(this).val();
+        alert(val);
+    });
+});
+</script>
+
 <style>
     .row {
         margin-top: 5px;
