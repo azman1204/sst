@@ -44,7 +44,7 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col col-sm-2">Tel</div>
-        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="text" name="tel" value="<?= $dat->tel ?>" class="form-control"></div>
         <div class="col col-sm-2">Jantina</div>
         <div class="col col-sm">
             <input type="radio" name="jantina" value="L"> LELAKI
@@ -53,13 +53,13 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col col-sm-2">Tarikh Lahir</div>
-        <div class="col col-sm"><input type="date" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="date" name="tkh_lahir" value="<?= $dat->tkh_lahir ?>" class="form-control"></div>
         <div class="col col-sm-2">Umur</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control" disabled></div>
+        <div class="col col-sm"><input type="text" value="<?= $dat->umur ?>" class="form-control" disabled></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Klinik Kesihatan</div>
-        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="text" value="<?= $dat->id_klinik ?>" class="form-control"></div>
         <div class="col col-sm-2">Nama Sekolah</div>
         <div class="col col-sm">
             <?= Html::dropDownList('id_sekolah', '', $sek, ['class'=>'form-control']) ?>
@@ -71,9 +71,7 @@ if (isset($salah)) {
             <?= Html::dropDownList('kump_etnik', '', $kump_etnik, ['class'=>'form-control']) ?>
         </div>
         <div class="col col-sm-2">Pecahan Etnik</div>
-        <div class="col col-sm" id="my-etnik">
-            
-        </div>
+        <div class="col col-sm" id="my-etnik"></div>
     </div>
     <div class="row">
         <div class="col col-sm-2"></div>

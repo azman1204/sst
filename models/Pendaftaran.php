@@ -5,9 +5,10 @@ class Pendaftaran extends \yii\db\ActiveRecord {
     // jika nama model dan nama table SAMA, tak perlu buat function tableName()
     function rules() {
         return [
-            [['nama','nokp'], 'required', 'message' => '{attribute} wajib diisi'],
+            [['nama','nokp', 'jantina', 'alamat', 'tel', 'tkh_lahir'], 'required', 'message' => '{attribute} wajib diisi'],
             [['nokp'], 'string', 'length' => 12],
-            [['nokp'], 'integer']
+            [['nokp'], 'integer'],
+            [['nokp'], 'unique'],
         ];
     }
     

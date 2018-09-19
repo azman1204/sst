@@ -14,7 +14,8 @@ class PendaftaranController extends \yii\web\Controller {
         return $this->render('form', $arr);
     }
     
-    function data() {
+    // shared data
+    private function data() {
         $sek = Sekolah::find()->all();
         $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
         $etnik = KumpEtnik::find()->all();
@@ -22,15 +23,6 @@ class PendaftaranController extends \yii\web\Controller {
         return $arr;
     }
     
-    // called by AJAX
-    function actionPecahan($id) {
-        $pecahan = PecahanEtnik::find()->where(['id_etnik' => $id])->all();
-        $pecahan_etnik = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
-        echo \yii\helpers\Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']);
-        //echo "test...$id";
-    }
-
-
     // insert data ke table pendaftaran
     function actionSave() {
         $id = $_POST['id'];
@@ -43,6 +35,25 @@ class PendaftaranController extends \yii\web\Controller {
         }
         $p->nama = $_POST['nama'];
         $p->nokp = $_POST['nokp'];
+        $p->tel = $_POST['tel'];
+        $p->kebenaran = $_POST['kebenaran'];
+        $p->alamat = $_POST['alamat'];
+        $p->kump_etnik = $_POST['kump_etnik'];
+        
+        if (isset($_POST['pecahan_etnik'])) {
+            $p->pecahan_etnik = $_POST['pecahan_etnik'];
+        }
+        
+        if (isset($_POST['jantina'])) {
+            $p->jantina = $_POST['jantina'];
+        } else {
+            // tak check mana2 pilihan jantina
+            $p->jantina = '';
+        }
+        
+        $p->tkh_lahir = $_POST['tkh_lahir'];
+        $p->id_sekolah = $_POST['id_sekolah'];
+        $p->id_klinik = 1; // patut baca dari session user yg login
         
         // validation
         if ($p->validate()) {
@@ -58,6 +69,14 @@ class PendaftaranController extends \yii\web\Controller {
             $arr['salah'] = $err;
             return $this->render('form', $arr);
         }
+    }
+    
+    // called by AJAX
+    function actionPecahan($id) {
+        $pecahan = PecahanEtnik::find()->where(['id_etnik' => $id])->all();
+        $pecahan_etnik = ArrayHelper::map($pecahan, 'id', 'nama_pecahan');
+        echo \yii\helpers\Html::dropDownList('pecahan_etnik', '', $pecahan_etnik, ['class'=>'form-control']);
+        //echo "test...$id";
     }
     
     // list data dlm table
@@ -82,7 +101,8 @@ class PendaftaranController extends \yii\web\Controller {
         // select * from pendaftaran where id = 1
         \Yii::$app->session->set('id_pendaftaran', $id); // set session
         $data = Pendaftaran::findOne($id);
-        $arr = ['dat' => $data];
+        $arr = $this->data();
+        $arr['dat'] = $data;
         return $this->render('form', $arr);
     }
 }
