@@ -10,7 +10,9 @@ class PendaftaranController extends \yii\web\Controller {
     // display form pendaftaran
     function actionForm() {
         $arr = $this->data();
-        $arr['dat'] = new Pendaftaran();
+        $p = new Pendaftaran();
+        $p->kebenaran = 'Y'; // set default value
+        $arr['dat'] = $p;
         return $this->render('form', $arr);
     }
     

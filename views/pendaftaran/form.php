@@ -62,7 +62,7 @@ if (isset($salah)) {
         <div class="col col-sm"><input type="text" value="<?= $dat->id_klinik ?>" class="form-control"></div>
         <div class="col col-sm-2">Nama Sekolah</div>
         <div class="col col-sm">
-            <?= Html::dropDownList('id_sekolah', '', $sek, ['class'=>'form-control']) ?>
+            <?= Html::dropDownList('id_sekolah', $dat->id_sekolah, $sek, ['class'=>'form-control']) ?>
         </div>
     </div>
     <div class="row">
