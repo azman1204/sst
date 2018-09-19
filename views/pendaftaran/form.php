@@ -23,11 +23,14 @@ if (isset($salah)) {
 }
 ?>
 <form method="post" action="index.php?r=pendaftaran/save">
+    <div class="row">
+        <div class="col col-sm">Nama :</div>
+        <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>"></div>
+        <div class="col col-sm">No KP :</div>
+        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>"></div>
+    </div>
+    
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
     <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
-    Nama : <input type="text" name="nama" value="<?= $dat->nama ?>">
-    <br>
-    No KP : <input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>">
-    <br>
     <input type="submit" value="Simpan">
 </form>
