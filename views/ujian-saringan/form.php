@@ -69,6 +69,22 @@ if (isset($salah)) {
     <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
 </form>
 
+<script>
+// on load (semua element HTML dah load), execute following
+$(function() {
+    $('[name=menjalani_ujian]').click(enable); // create event
+    
+    function enable() {
+        var pilihan = $('[name=menjalani_ujian]:checked').val();
+        if (pilihan === 'T') {
+            $('[type=text],select').attr('disabled', 'true');
+        } else {
+            $('[type=text],select').removeAttr('disabled');
+        }
+    }
+});
+</script>
+
 <style>
     .row {
         margin-top: 5px;
