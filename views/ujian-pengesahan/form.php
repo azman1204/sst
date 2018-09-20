@@ -1,14 +1,14 @@
 <?php
 use yii\helpers\Html;
-use app\models\Rujukan;
-$this->render('/pendaftaran/menu');
+use app\models\KodUjian;
+echo "<legend>Keputusan Ujian Pengesahan</legend>";
+echo $this->render('/pendaftaran/menu');
 
 if (isset($salah)) {
     echo app\mylib\Util::alert($salah);
 }
 ?>
 
-<legend>Keputusan Ujian Pengesahan</legend>
 <form method="post" action="index.php?r=ujian-saringan/save">
     <b>Hb ANALYSIS</b>
     <div class="row">
@@ -19,7 +19,9 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col-sm-1">Kod Keputusan</div>
-        <div class="col-sm-4"><input type="text" name="kod_hbkeputusan" value="<?= $dat->kod_hbkeputusan ?>" class="form-control"></div>
+        <div class="col-sm-4">
+        <?= Html::dropDownList('kod_hbkeputusan', $dat->kod_hbkeputusan, KodUjian::dd('HB'), ['class' => 'form-control']) ?>
+        </div>
         <div class="col-sm-1">Kategori Keputusan</div>
         <div class="col-sm-4"><input type="text" value="" class="form-control"></div>
     </div>
@@ -37,7 +39,9 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col-sm-1">Kod Keputusan</div>
-        <div class="col-sm-4"><input type="text" name="kod_dnakeputusan" value="<?= $dat->kod_dnakeputusan ?>" class="form-control"></div>
+        <div class="col-sm-4">
+        <?= Html::dropDownList('kod_hbkeputusan', $dat->kod_hbkeputusan, KodUjian::dd('DNA'), ['class' => 'form-control']) ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-1"></div>
