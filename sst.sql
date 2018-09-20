@@ -45,16 +45,17 @@ CREATE TABLE `kod_ujian` (
   `tindakan_lanjut` varchar(500) DEFAULT NULL,
   `diag_akhir` varchar(500) DEFAULT NULL,
   `analisis` varchar(500) DEFAULT NULL,
+  `perlu_diag` char(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kod_ujian` */
 
-insert  into `kod_ujian`(`id`,`kod_ujian`,`kat_ujian`,`kat_keputusan`,`tindakan_lanjut`,`diag_akhir`,`analisis`) values 
-(1,'R1','HB','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,NULL),
-(2,'N','HB','Normal',NULL,NULL,'No abnormality detected\r\n'),
-(3,'R1','DNA','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,'Rejected sample (need to repeat eg clotted,leaking,insufficient)*\r\n'),
-(4,'NAD\r\n','DNA',NULL,'Kaunseling\r\n',NULL,'No abnormality detected\r\n');
+insert  into `kod_ujian`(`id`,`kod_ujian`,`kat_ujian`,`kat_keputusan`,`tindakan_lanjut`,`diag_akhir`,`analisis`,`perlu_diag`) values 
+(1,'R1','HB','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,NULL,'Y'),
+(2,'N','HB','Normal',NULL,NULL,'No abnormality detected\r\n','T'),
+(3,'R1','DNA','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,'Rejected sample (need to repeat eg clotted,leaking,insufficient)*\r\n',''),
+(4,'NAD\r\n','DNA',NULL,'Kaunseling\r\n',NULL,'No abnormality detected\r\n','');
 
 /*Table structure for table `kump_etnik` */
 
