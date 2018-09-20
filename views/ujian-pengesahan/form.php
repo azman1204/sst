@@ -23,11 +23,11 @@ if (isset($salah)) {
         <?= Html::dropDownList('kod_hbkeputusan', $dat->kod_hbkeputusan, KodUjian::dd('HB'), ['class' => 'form-control']) ?>
         </div>
         <div class="col-sm-1">Kategori Keputusan</div>
-        <div class="col-sm-4"><input type="text" value="" class="form-control" disabled=""></div>
+        <div class="col-sm-4"><input id="kat_keputusan" type="text" value="" class="form-control" disabled=""></div>
     </div>
     <div class="row">
         <div class="col-sm-1">Perlu Diagnosa Molekular</div>
-        <div class="col-sm-4"><input type="text" name="diag_molekular" value="<?= $dat->diag_molekular ?>" class="form-control" disabled=""></div>
+        <div class="col-sm-4"><input type="text" id="diag_molekular" value="<?= $dat->diag_molekular ?>" class="form-control" disabled=""></div>
     </div>
     
     <b>DNA ANALYSIS</b>
@@ -56,7 +56,16 @@ if (isset($salah)) {
 
 <script>
 $(function() {
+    $('[name=kod_hbkeputusan]').change(doit);
     
+    function doit() {
+        var id2 = $('[name=kod_hbkeputusan]').val();
+        $.getJSON('index.php?r=ujian-pengesahan/kodujian', {id:id2}, function(data) {
+            //console.log(data);
+            $('#kat_keputusan').val(data.kat_keputusan);
+            $('#diag_molekular').val(data.perlu_diag);
+        });
+    }
 });
 </script>
 

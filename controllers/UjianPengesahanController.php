@@ -9,6 +9,7 @@ class UjianPengesahanController extends \yii\web\Controller {
         return $this->render('form', $data);
     }
     
+    // index.php?r=ujian-pengesahan/kodujian
     function actionKodujian($id) {
         $dat = KodUjian::findOne($id);
         return $this->asJson($dat);
