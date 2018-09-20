@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 ?>
 
@@ -55,20 +56,20 @@ if (isset($salah)) {
         <div class="col col-sm-2">Tarikh Lahir</div>
         <div class="col col-sm"><input type="date" name="tkh_lahir" value="<?= $dat->tkh_lahir ?>" class="form-control"></div>
         <div class="col col-sm-2">Umur</div>
-        <div class="col col-sm"><input type="text" value="<?= $dat->umur ?>" class="form-control" disabled></div>
+        <div class="col col-sm"><input type="text" id="umur" value="<?= $dat->umur ?>" class="form-control" disabled></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Klinik Kesihatan</div>
         <div class="col col-sm"><input type="text" value="<?= $dat->id_klinik ?>" class="form-control"></div>
         <div class="col col-sm-2">Nama Sekolah</div>
         <div class="col col-sm">
-            <?= Html::dropDownList('id_sekolah', $dat->id_sekolah, $sek, ['class'=>'form-control']) ?>
+<?= Html::dropDownList('id_sekolah', $dat->id_sekolah, $sek, ['class' => 'form-control']) ?>
         </div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Etnik</div>
         <div class="col col-sm">
-            <?= Html::dropDownList('kump_etnik', $dat->kump_etnik, $kump_etnik, ['class'=>'form-control']) ?>
+<?= Html::dropDownList('kump_etnik', $dat->kump_etnik, $kump_etnik, ['class' => 'form-control']) ?>
         </div>
         <div class="col col-sm-2">Pecahan Etnik</div>
         <div class="col col-sm" id="my-etnik"></div>
@@ -83,15 +84,25 @@ if (isset($salah)) {
 </form>
 
 <script>
-$(function() {
-    $('[name=kump_etnik]').change(function() {
-        var val = $(this).val();
-        $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val + 
-                '&id_pecahan=<?= $dat->pecahan_etnik ?>');
+    $(function () {
+        $('[name=kump_etnik]').change(function () {
+            var val = $(this).val();
+            $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val +
+                    '&id_pecahan=<?= $dat->pecahan_etnik ?>');
+        });
+
+        $('[name=kump_etnik]').trigger('change');
+        $('[name=tkh_lahir]').blur(kiraUmur);
+
+        function kiraUmur() {
+            var tkh = $('[name=tkh_lahir]').val();
+            var bod = new Date(tkh);
+            var ageDifMs = Date.now() - bod.getTime();
+            var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            var age =  Math.abs(ageDate.getUTCFullYear() - 1970);
+            $('#umur').val(age);
+        }
     });
-    
-    $('[name=kump_etnik]').trigger('change');
-});
 </script>
 
 <style>
