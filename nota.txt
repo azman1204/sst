@@ -101,4 +101,20 @@ VALIDATION
 - guna both = terbaik
 
 
+Composer
+------------------------
+A
+> Composer require yiisoft/yii
+> Composer install
+> Composer.json
 
+Git
+------------------------
+Download from Git-scm.com
+Install it, right click on the folder to run command
+> Git clone  https://github.com/azman1204/sst.git
+> Composer install
+
+Form Pendaftaran
+-------------------------
+PKD = Pejabat Kesihatan Daerah

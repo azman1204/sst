@@ -56,7 +56,10 @@ if (isset($salah)) {
         <div class="col col-sm-2">Tarikh Lahir</div>
         <div class="col col-sm"><input type="date" name="tkh_lahir" value="<?= $dat->tkh_lahir ?>" class="form-control"></div>
         <div class="col col-sm-2">Umur</div>
-        <div class="col col-sm"><input type="text" id="umur" value="<?= $dat->umur ?>" class="form-control" disabled></div>
+        <div class="col col-sm">
+            <input type="text" id="umur" value="<?= $dat->umur ?>" class="form-control" disabled>
+            <input type="hidden" name="umur" id="umur2" value="<?= $dat->umur ?>">
+        </div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Klinik Kesihatan</div>
@@ -91,8 +94,8 @@ if (isset($salah)) {
                     '&id_pecahan=<?= $dat->pecahan_etnik ?>');
         });
 
-        $('[name=kump_etnik]').trigger('change');
-        $('[name=tkh_lahir]').blur(kiraUmur);
+        $('[name=kump_etnik]').trigger('change'); // trigger change event auto
+        $('[name=tkh_lahir]').blur(kiraUmur); // blur = event out focus
 
         function kiraUmur() {
             var tkh = $('[name=tkh_lahir]').val();
@@ -101,6 +104,7 @@ if (isset($salah)) {
             var ageDate = new Date(ageDifMs); // miliseconds from epoch
             var age =  Math.abs(ageDate.getUTCFullYear() - 1970);
             $('#umur').val(age);
+            $('#umur2').val(age);
         }
     });
 </script>
