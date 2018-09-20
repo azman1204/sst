@@ -33,6 +33,12 @@ class UjianSaringanController extends \yii\web\Controller {
         $dat->id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
         $dat->hb = $_POST['hb'];
         $dat->mch = $_POST['mch'];
+        $dat->mcv = $_POST['mcv'];
+        $dat->mchc = $_POST['mchc'];
+        $dat->rdw = $_POST['rdw'];
+        $dat->rbc = $_POST['rbc'];
+        $dat->id_diag_sementara = $_POST['id_diag_sementara'];
+        $dat->menjalani_ujian = $_POST['menjalani_ujian'];
         
         // validation
         if ($dat->validate()) {
