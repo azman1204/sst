@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use app\models\Rujukan;
+?>
+
 <legend>Keputusan ujian Saringan</legend>
 
 <ul class="nav nav-tabs">
@@ -50,8 +55,10 @@ if (isset($salah)) {
         <div class="col-sm-4"><input type="text" name="rbc" value="<?= $dat->rbc ?>" class="form-control"></div>
     </div>
     <div class="row">
-        <div class="col-sm-1">Diagnosis</div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-1">Diagnosis Sementara</div>
+        <div class="col-sm-4">
+            <?= Html::dropDownList('id_diag_sementara', $dat->id_diag_sementara, Rujukan::dd('diag_temp'), ['class' => 'form-control']) ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-1"></div>
