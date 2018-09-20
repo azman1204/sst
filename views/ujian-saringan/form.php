@@ -73,13 +73,14 @@ if (isset($salah)) {
 // on load (semua element HTML dah load), execute following
 $(function() {
     $('[name=menjalani_ujian]').click(enable); // create event
+    $('[name=menjalani_ujian]:checked').trigger('click');
     
     function enable() {
         var pilihan = $('[name=menjalani_ujian]:checked').val();
         if (pilihan === 'T') {
-            $('[type=text],select').attr('disabled', 'true');
+            $('[type=text],select,[type=date]').attr('disabled', 'true');
         } else {
-            $('[type=text],select').removeAttr('disabled');
+            $('[type=text],select,[type=date]').removeAttr('disabled');
         }
     }
 });
