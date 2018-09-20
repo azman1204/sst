@@ -23,11 +23,11 @@ if (isset($salah)) {
         <?= Html::dropDownList('kod_hbkeputusan', $dat->kod_hbkeputusan, KodUjian::dd('HB'), ['class' => 'form-control']) ?>
         </div>
         <div class="col-sm-1">Kategori Keputusan</div>
-        <div class="col-sm-4"><input type="text" value="" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" value="" class="form-control" disabled=""></div>
     </div>
     <div class="row">
         <div class="col-sm-1">Perlu Diagnosa Molekular</div>
-        <div class="col-sm-4"><input type="text" name="diag_molekular" value="<?= $dat->diag_molekular ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="diag_molekular" value="<?= $dat->diag_molekular ?>" class="form-control" disabled=""></div>
     </div>
     
     <b>DNA ANALYSIS</b>
@@ -42,6 +42,8 @@ if (isset($salah)) {
         <div class="col-sm-4">
         <?= Html::dropDownList('kod_hbkeputusan', $dat->kod_hbkeputusan, KodUjian::dd('DNA'), ['class' => 'form-control']) ?>
         </div>
+        <div class="col-sm-1">Diagnosa Akhir</div>
+        <div class="col-sm-4"><input type="text" name="diag_molekular" value="" class="form-control" disabled=""></div>
     </div>
     <div class="row">
         <div class="col-sm-1"></div>
