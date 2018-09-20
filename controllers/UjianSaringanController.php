@@ -14,6 +14,7 @@ class UjianSaringanController extends \yii\web\Controller {
         if (! $ujian) {
             // jika data belum wujud dlm table ujian_saringan
             $ujian = new UjianSaringan();
+            $ujian->menjalani_ujian = 'Y'; // set default value
         }
         
         $arr = ['dat' => $ujian];
@@ -37,6 +38,7 @@ class UjianSaringanController extends \yii\web\Controller {
         $dat->mchc = $_POST['mchc'];
         $dat->rdw = $_POST['rdw'];
         $dat->rbc = $_POST['rbc'];
+        $dat->tkh_ujian = $_POST['tkh_ujian'];
         $dat->id_diag_sementara = $_POST['id_diag_sementara'];
         $dat->menjalani_ujian = $_POST['menjalani_ujian'];
         

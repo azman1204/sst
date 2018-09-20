@@ -22,9 +22,7 @@ use app\models\Rujukan;
 
 <?php
 if (isset($salah)) {
-    foreach ($salah as $e) {
-        echo $e[0] . '<br>';
-    }
+    echo app\mylib\Util::alert($salah);
 }
 ?>
 
@@ -35,6 +33,8 @@ if (isset($salah)) {
             <input type="radio" name="menjalani_ujian" value="Y" <?= $dat->menjalani_ujian === 'Y' ? 'checked' : '' ?>> YA
             <input type="radio" name="menjalani_ujian" value="T" <?= $dat->menjalani_ujian === 'T' ? 'checked' : '' ?>> TIDAK
         </div>
+        <div class="col col-sm-1">Tarikh Ujian</div>
+        <div class="col col-sm-4"><input type="date" name="tkh_ujian" value="<?= $dat->tkh_ujian ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-sm-1">HB</div>

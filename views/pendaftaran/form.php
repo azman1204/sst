@@ -22,9 +22,7 @@ use yii\helpers\Html;
 
 <?php
 if (isset($salah)) {
-    foreach ($salah as $e) {
-        echo $e[0] . '<br>';
-    }
+    echo app\mylib\Util::alert($salah);
 }
 ?>
 <form method="post" action="index.php?r=pendaftaran/save">

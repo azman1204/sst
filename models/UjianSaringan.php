@@ -10,7 +10,7 @@ class UjianSaringan extends \yii\db\ActiveRecord {
     
     public function rules() {
        return [
-            [['hb','mch'], 'required', 'message' => '{attribute} wajib diisi'],
+            [['hb','mch', 'mcv', 'mchc', 'rdw', 'rbc', 'tkh_ujian'], 'required', 'message' => '{attribute} wajib diisi'],
         ];
     }
     
