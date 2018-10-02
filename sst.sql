@@ -1,5 +1,5 @@
 /*
-SQLyog Community v12.4.3 (64 bit)
+SQLyog Community v13.1.1 (64 bit)
 MySQL - 5.7.21 : Database - sst
 *********************************************************************
 */
@@ -15,6 +15,24 @@ MySQL - 5.7.21 : Database - sst
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`sst` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `sst`;
+
+/*Table structure for table `kaunseling` */
+
+DROP TABLE IF EXISTS `kaunseling`;
+
+CREATE TABLE `kaunseling` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pendaftaran` int(11) DEFAULT NULL,
+  `telah_kaunseling` char(1) DEFAULT NULL,
+  `tkh_kaunseling` date DEFAULT NULL,
+  `sts_saringan` char(1) DEFAULT NULL,
+  `catatan` text,
+  `sebab_cicir` varchar(2) DEFAULT NULL,
+  `diagnosis_akhir` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*Data for the table `kaunseling` */
 
 /*Table structure for table `klinik` */
 
@@ -143,7 +161,7 @@ CREATE TABLE `rujukan` (
   `kod` varchar(25) DEFAULT NULL,
   `keterangan` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rujukan` */
 
@@ -154,7 +172,10 @@ insert  into `rujukan`(`id`,`kat`,`kod`,`keterangan`) values
 (4,'diag_temp','4','LAIN-LAIN'),
 (5,'diag_temp','5','CONFIRM IDA'),
 (6,'yt','Y','Ya'),
-(7,'yt','T','Tidak');
+(7,'yt','T','Tidak'),
+(8,'sebab_cicir','1','Tidak Menjalani Ujian BC'),
+(9,'sebab_cicir','2','Enggan'),
+(10,'sebab_cicir','3','Pindah');
 
 /*Table structure for table `sekolah` */
 
