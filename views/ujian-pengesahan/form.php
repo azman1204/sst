@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use app\models\KodUjian;
 echo "<legend>Keputusan Ujian Pengesahan</legend>";
-echo $this->render('/pendaftaran/menu');
+echo $this->render('/pendaftaran/menu', ['current' => 3]);
 
 if (isset($salah)) {
     echo app\mylib\Util::alert($salah);

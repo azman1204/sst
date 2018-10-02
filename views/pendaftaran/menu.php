@@ -1,14 +1,23 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link" href="index.php?r=pendaftaran/form">Pendaftaran</a>
+    <a class="nav-link <?= active(1, $current) ?>" href="index.php?r=pendaftaran/form">Pendaftaran</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="#">Ujian Saringan</a>
+    <a class="nav-link <?= active(2, $current) ?>" href="index.php?r=ujian-saringan/form">Ujian Saringan</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Ujian Pengesahan</a>
+    <a class="nav-link <?= active(3, $current) ?>" href="index.php?r=ujian-pengesahan/form">Ujian Pengesahan</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Diagnosis Akhir</a>
+    <a class="nav-link <?= active(4, $current) ?>" href="index.php?r=kaunseling/form">Kaunseling</a>
   </li>
 </ul>
+
+<?php
+function active($tab, $current) {
+    if ($tab == $current) {
+        return 'active';
+    } else {
+        return '';
+    }
+}

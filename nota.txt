@@ -113,6 +113,7 @@ Git
 Download from Git-scm.com
 Install it, right click on the folder to run command
 > Git clone  https://github.com/azman1204/sst.git
+> cd /c/wamp64/www/sst
 > Composer install
 
 Form Pendaftaran
