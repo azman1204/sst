@@ -29,7 +29,7 @@ class PendaftaranController extends \yii\web\Controller {
         $sek = Sekolah::find()->all();
         $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
         $etnik = KumpEtnik::find()->all();
-        $arr['kump_etnik'] = ArrayHelper::map($etnik, 'id', 'nama');
+        $arr['kump_etnik'] = ['0' => '--Sila Pilih--'] + ArrayHelper::map($etnik, 'id', 'nama');
         return $arr;
     }
     
