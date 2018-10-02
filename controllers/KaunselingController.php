@@ -1,12 +1,17 @@
 <?php
+
 namespace app\controllers;
+
 use app\models\Kaunseling;
 
 class KaunselingController extends \yii\web\Controller {
+
     function actionForm() {
-        return $this->render('form');
+        $kaunseling = new Kaunseling();
+        $kaunseling->telah_kaunseling = 'T';
+        return $this->render('form', ['dat' => $kaunseling]);
     }
-    
+
     function actionSave() {
         $id = $_POST['id'];
         if (empty($id)) {
@@ -16,15 +21,18 @@ class KaunselingController extends \yii\web\Controller {
             // updae
             $kaunseling = Kaunseling::findOne($id);
         }
-        
-        if (isset($_POST['telah_kaunseling'])) {
-            $kaunseling->telah_kaunseling = $_POST['telah_kaunseling'];
+
+        $kaunseling->telah_kaunseling = $_POST['telah_kaunseling'];
+
+        if (isset($_POST['tkh_kaunseling'])) {
+            $kaunseling->tkh_kaunseling = $_POST['tkh_kaunseling'];
+        } else {
+            $kaunseling->tkh_kaunseling = null;
         }
         
-        $kaunseling->tkh_kaunseling = $_POST['tkh_kaunseling'];
         $kaunseling->catatan = $_POST['catatan'];
         $kaunseling->sebab_cicir = $_POST['sebab_cicir'];
-        
+
         if ($kaunseling->validate()) {
             // validation ok. then baru save data
             $kaunseling->id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
@@ -32,7 +40,10 @@ class KaunselingController extends \yii\web\Controller {
             return $this->redirect('index.php?r=pendaftaran/list');
         } else {
             // validation ko
+            $arr['dat'] = $kaunseling;
+            $arr['salah'] = $kaunseling->getErrors();
             return $this->render('form', $arr);
         }
     }
+
 }
