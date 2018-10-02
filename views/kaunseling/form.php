@@ -16,7 +16,7 @@ if (isset($salah)) {
             Tidak <input type="radio" name="telah_kaunseling" <?= $dat->telah_kaunseling === 'T' ? 'checked' : '' ?> value="T">
         </div>
         <div class="col col-sm-2">Tarikh Kaunseling</div>
-        <div class="col col-sm-4"><input type="date" name="tkh_kaunseling" value="" class="form-control"></div>
+        <div class="col col-sm-4"><input type="date" name="tkh_kaunseling" value="<?= $dat->tkh_kaunseling ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-sm-2">Status Ujian Saringan</div>
@@ -27,12 +27,12 @@ if (isset($salah)) {
     <div class="row">
         <div class="col-sm-2">Sebab Cicir</div>
         <div class="col-sm-4">
-        <?= Html::dropDownList('sebab_cicir', '', Rujukan::dd('sebab_cicir', 'Y'), ['class'=>'form-control']) ?>
+        <?= Html::dropDownList('sebab_cicir', $dat->sebab_cicir, Rujukan::dd('sebab_cicir', 'Y'), ['class'=>'form-control']) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-2">Catatan</div>
-        <div class="col-sm-4"><textarea class="form-control" name="catatan"></textarea></div>
+        <div class="col-sm-4"><textarea class="form-control" name="catatan"><?= $dat->catatan ?></textarea></div>
     </div>
     <div class="row">
         <div class="col-sm-2"></div>
@@ -40,7 +40,7 @@ if (isset($salah)) {
     </div>
     
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
-    <input type="hidden" name="id" value="<?= '' ?>"> <!-- PK -->
+    <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
 </form>
 
 <script>

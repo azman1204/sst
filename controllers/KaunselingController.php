@@ -7,8 +7,15 @@ use app\models\Kaunseling;
 class KaunselingController extends \yii\web\Controller {
 
     function actionForm() {
-        $kaunseling = new Kaunseling();
-        $kaunseling->telah_kaunseling = 'T';
+        $id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
+        $kaunseling = Kaunseling::find()->where(['id_pendaftaran' => $id_pendaftaran])->one();
+        
+        if (! $kaunseling) {
+            // jika data belum wujud dlm table kaunseling
+            $kaunseling = new Kaunseling();
+            $kaunseling->telah_kaunseling = 'T';
+        }
+        
         return $this->render('form', ['dat' => $kaunseling]);
     }
 
