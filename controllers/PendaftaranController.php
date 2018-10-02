@@ -7,13 +7,21 @@ use app\models\KumpEtnik;
 use app\models\PecahanEtnik;
 
 class PendaftaranController extends \yii\web\Controller {
-    // display form pendaftaran
+    // on klik pada butang baru
     function actionForm() {
         $arr = $this->data();
         $p = new Pendaftaran();
         $p->kebenaran = 'Y'; // set default value
         $arr['dat'] = $p;
         return $this->render('form', $arr);
+    }
+    
+    // on klik pd tab pendaftaran
+    function actionEdit2() {
+        $id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
+        $arr = $this->data();
+        $arr['dat'] = Pendaftaran::findOne($id_pendaftaran);
+        return $this->render('form', $arr); 
     }
     
     // shared data

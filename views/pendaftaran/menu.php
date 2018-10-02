@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link <?= active(1, $current) ?>" href="index.php?r=pendaftaran/form">Pendaftaran</a>
+    <a class="nav-link <?= active(1, $current) ?>" href="index.php?r=pendaftaran/edit2">Pendaftaran</a>
   </li>
   <li class="nav-item">
     <a class="nav-link <?= active(2, $current) ?>" href="index.php?r=ujian-saringan/form">Ujian Saringan</a>

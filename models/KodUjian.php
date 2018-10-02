@@ -7,8 +7,12 @@ class KodUjian extends \yii\db\ActiveRecord {
     }
     
     // return array [key => val, ...]
-    static function dd($kat) {
+    static function dd($kat, $opt='N') {
         $data = self::find()->where(['kat_ujian' => $kat])->all();
-        return \yii\helpers\ArrayHelper::map($data, 'id', 'kod_ujian');
+        $arr =  \yii\helpers\ArrayHelper::map($data, 'id', 'kod_ujian');
+        if ($opt === 'Y') {
+            $arr = ['0' => '--Sila Pilih--'] + $arr;
+        }
+        return $arr;
     }
 }
