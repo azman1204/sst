@@ -30,9 +30,14 @@ CREATE TABLE `kaunseling` (
   `sebab_cicir` varchar(2) DEFAULT NULL,
   `diagnosis_akhir` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kaunseling` */
+
+insert  into `kaunseling`(`id`,`id_pendaftaran`,`telah_kaunseling`,`tkh_kaunseling`,`sts_saringan`,`catatan`,`sebab_cicir`,`diagnosis_akhir`) values 
+(1,13,'T',NULL,NULL,'test','2',NULL),
+(8,16,'Y','2018-10-30',NULL,'ok','1',NULL),
+(7,13,'T',NULL,NULL,'','0',NULL);
 
 /*Table structure for table `klinik` */
 
@@ -71,7 +76,7 @@ CREATE TABLE `kod_ujian` (
 
 insert  into `kod_ujian`(`id`,`kod_ujian`,`kat_ujian`,`kat_keputusan`,`tindakan_lanjut`,`diag_akhir`,`analisis`,`perlu_diag`) values 
 (1,'R1','HB','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,NULL,'Y'),
-(2,'N','HB','Normal',NULL,NULL,'No abnormality detected\r\n','T'),
+(2,'N','HB','Normal',NULL,'Bukan Pembawa Thalassaemia Beta','No abnormality detected\r\n','T'),
 (3,'R1','DNA','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,'Rejected sample (need to repeat eg clotted,leaking,insufficient)*\r\n',''),
 (4,'NAD\r\n','DNA',NULL,'Kaunseling\r\n',NULL,'No abnormality detected\r\n','');
 
@@ -106,7 +111,7 @@ CREATE TABLE `pecahan_etnik` (
   `id_etnik` int(11) DEFAULT NULL,
   `nama_pecahan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pecahan_etnik` */
 
@@ -115,7 +120,8 @@ insert  into `pecahan_etnik`(`id`,`id_etnik`,`nama_pecahan`) values
 (2,3,'Punjabi'),
 (3,3,'Sinhalese'),
 (4,5,'Banjau'),
-(5,5,'Banjar');
+(5,5,'Banjar'),
+(6,1,'Melayu');
 
 /*Table structure for table `pendaftaran` */
 
@@ -141,15 +147,16 @@ CREATE TABLE `pendaftaran` (
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unik` (`nokp`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pendaftaran` */
 
 insert  into `pendaftaran`(`id`,`nama`,`nokp`,`kebenaran`,`alamat`,`tel`,`jantina`,`tkh_lahir`,`umur`,`id_sekolah`,`id_klinik`,`kump_etnik`,`pecahan_etnik`,`created_dt`,`created_by`,`updated_dt`,`updated_by`) values 
-(12,'azman zakaria','123456789013',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-09-19 15:56:29',NULL,NULL,NULL),
-(13,'Zakaria bin Wahab','123456789014','Y','No 123',NULL,'L','2018-09-19',NULL,2,1,3,2,'2018-09-19 16:11:54',NULL,NULL,NULL),
+(12,'azman zakaria','123456789013','Y','test','0162809998','L','2004-10-13',13,1,1,3,1,'2018-09-19 15:56:29',NULL,NULL,NULL),
+(13,'Zakaria bin Wahab','123456789014','Y','No 123','0162809998','L','2012-09-19',6,2,1,3,2,'2018-09-19 16:11:54',NULL,NULL,NULL),
 (14,'john doe','123456789018','T','test 123','0162809998','P','2015-09-14',3,2,1,3,3,'2018-09-19 16:23:48',NULL,NULL,NULL),
-(15,'Mr ABC','123456789019','Y','abc','0162809998','L','2016-09-20',2,2,1,3,2,'2018-09-20 11:43:49',NULL,NULL,NULL);
+(15,'Mr ABC','123456789019','Y','abc','0162809998','L','2016-09-20',2,2,1,3,2,'2018-09-20 11:43:49',NULL,NULL,NULL),
+(16,'john doe','123456789012','Y','test 123','0162809998','L','2004-10-12',13,2,1,3,2,'2018-10-02 16:04:00',NULL,NULL,NULL);
 
 /*Table structure for table `rujukan` */
 
@@ -206,14 +213,17 @@ CREATE TABLE `ujian_pengesahan` (
   `tkh_hbhantar` date DEFAULT NULL,
   `tkh_hbkeputusan` date DEFAULT NULL,
   `kod_hbkeputusan` varchar(5) DEFAULT NULL,
-  `diag_molekular` char(1) DEFAULT NULL,
   `tkh_dnahantar` date DEFAULT NULL,
   `tkh_dnakeputusan` date DEFAULT NULL,
   `kod_dnakeputusan` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ujian_pengesahan` */
+
+insert  into `ujian_pengesahan`(`id`,`id_pendaftaran`,`tkh_hbhantar`,`tkh_hbkeputusan`,`kod_hbkeputusan`,`tkh_dnahantar`,`tkh_dnakeputusan`,`kod_dnakeputusan`) values 
+(2,13,'2018-10-02','2018-10-03','2','2018-10-16','2018-10-17','3'),
+(3,16,'2018-10-16','2018-10-16','2','2018-10-23','2018-10-24','3');
 
 /*Table structure for table `ujian_saringan` */
 
@@ -236,13 +246,15 @@ CREATE TABLE `ujian_saringan` (
   `updated_by` int(11) DEFAULT NULL,
   `updated_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ujian_saringan` */
 
 insert  into `ujian_saringan`(`id`,`id_pendaftaran`,`menjalani_ujian`,`tkh_ujian`,`hb`,`mch`,`mcv`,`mchc`,`rdw`,`rbc`,`id_diag_sementara`,`created_by`,`created_dt`,`updated_by`,`updated_dt`) values 
 (6,14,'T',NULL,2.00,1.00,3.00,1.00,4.00,1.00,2,NULL,'2018-09-20 11:26:28',NULL,NULL),
-(7,15,'Y','2018-09-27',4.00,4.00,4.00,4.00,4.00,4.00,2,NULL,'2018-09-20 12:04:45',NULL,NULL);
+(7,15,'Y','2018-09-27',4.00,4.00,4.00,4.00,4.00,4.00,2,NULL,'2018-09-20 12:04:45',NULL,NULL),
+(8,13,'Y','2018-10-02',12.00,12.00,4.00,1.00,1.00,1.00,1,NULL,'2018-10-02 12:55:34',NULL,NULL),
+(9,16,'Y','2018-10-02',12.00,12.00,12.00,12.00,12.00,12.00,3,NULL,'2018-10-02 16:04:39',NULL,NULL);
 
 /*Table structure for table `user` */
 
@@ -253,10 +265,17 @@ CREATE TABLE `user` (
   `user_id` varchar(50) DEFAULT NULL,
   `pwd` varchar(100) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
+  `id_klinik` int(11) DEFAULT NULL,
+  `level` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
+
+insert  into `user`(`id`,`user_id`,`pwd`,`name`,`id_klinik`,`level`) values 
+(3,'azman','1234','Azman Zakaria',1,'klinik'),
+(4,'abu','1234','Abu bin hassan',NULL,'admin'),
+(5,'ali','1234','Ali bin Bakar',NULL,'pkd');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
