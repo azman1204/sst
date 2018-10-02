@@ -9,8 +9,8 @@ echo $this->render('/pendaftaran/menu', ['current' => 4]);
     <div class="row">
         <div class="col-sm-2">Telah Kaunseling</div>
         <div class="col-sm-4">
-            Ya <input type="radio" name="telah_kaunseling">
-            Tidak <input type="radio" name="telah_kaunseling">
+            Ya <input type="radio" name="telah_kaunseling" value="Y">
+            Tidak <input type="radio" name="telah_kaunseling" value="T">
         </div>
         <div class="col col-sm-2">Tarikh Kaunseling</div>
         <div class="col col-sm-4"><input type="date" name="tkh_kaunseling" value="" class="form-control"></div>
@@ -24,7 +24,7 @@ echo $this->render('/pendaftaran/menu', ['current' => 4]);
     <div class="row">
         <div class="col-sm-2">Sebab Cicir</div>
         <div class="col-sm-4">
-        <?= Html::dropDownList('sebab_cicir', '', Rujukan::dd('sebab_cicir'), ['class'=>'form-control']) ?>
+        <?= Html::dropDownList('sebab_cicir', '', Rujukan::dd('sebab_cicir', 'Y'), ['class'=>'form-control']) ?>
         </div>
     </div>
     <div class="row">
