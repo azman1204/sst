@@ -19,12 +19,14 @@ class LoginController extends \yii\web\Controller {
             return $this->redirect('index.php?r=pendaftaran/list');
         } else {
             // user not exist
+            \Yii::$app->session->setFlash('err', 'Kombinasi ID Pengguna dan Katalaluan Salah');
             return $this->redirect('index.php?r=login');
         }
     }
     
     // logout
     function actionLogout() {
-        
+        \Yii::$app->user->logout();
+        return $this->redirect('index.php?r=login');
     }
 }

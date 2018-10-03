@@ -1,3 +1,6 @@
+<?php
+$user = \Yii::$app->user->identity;
+?>
 <!doctype html>
 <html>
     <head>
@@ -13,7 +16,7 @@
                 Utama | 
                 <a href="index.php?r=pendaftaran/list">Pendaftaran</a> | 
                 Laporan | 
-                Log Keluar
+                <a href="index.php?r=login/logout">Log Keluar (<?= $user->name ?>)</a>
             </div>
             <div id="xbody">
                 <?php echo $content; ?>

@@ -8,6 +8,15 @@
         <form method="post" action="index.php?r=login/auth">
             <div class="container">
                 <legend>Login Form</legend>
+                
+                <?php
+                if (\Yii::$app->session->hasFlash('err')) {
+                    echo "<div class='alert alert-danger'>";
+                    echo \Yii::$app->session->getFlash('err');
+                    echo "</div>";
+                }
+                ?>
+                
                 <div class="row">
                     <div class="col">ID Pengguna</div>
                 </div>
@@ -38,7 +47,7 @@
                 margin-top: 100px;
                 padding: 20px;
                 background-color: #eee;
-                border: 1px solid #ddd;
+                border: 3px solid #ddd;
             }
         </style>
     </body>
