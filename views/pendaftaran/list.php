@@ -132,17 +132,17 @@ use app\models\Kaunseling;
         <td><?= $pengesahan->tkh_hbkeputusan?></td>
         <td><?= $hb->kod_ujian ?></td>
         <td><?= $hb->kat_keputusan ?></td>
-        <td><?= $hb->perlu_diag ?></td>
+        <td><?= $hb->perlu_diag === 'Y' ? 'YA' : 'TIDAK' ?></td>
         <td><?= $pengesahan->tkh_dnahantar ?></td>
         <td><?= $pengesahan->tkh_dnakeputusan ?></td>
         <td><?= $dna->kod_ujian ?></td>
         <td><?= $diag_akhir ?></td>
-        <td><?= $kaunseling->telah_kaunseling ?></td>
+        <td><?= $kaunseling->telah_kaunseling === 'Y' ? 'YA' : 'TIDAK' ?></td>
         <td><?= $kaunseling->tkh_kaunseling ?></td>
-        <td><?= $kaunseling->sts_saringan ?></td>
+        <td><?= $kaunseling->telah_kaunseling === 'Y' ? 'SELESAI' : 'TIDAK SELESAI' ?></td>
         <td><?= $kaunseling->catatan ?></td>
         <td><?= Rujukan::getKeterangan('sebab_cicir', $kaunseling->sebab_cicir) ?></td>
-        <td><?= $kaunseling->diagnosis_akhir ?></td>
+        <td><?= Rujukan::getKeterangan('diagnosa', $kaunseling->diagnosis_akhir) ?></td>
     </tr>
     <?php } ?>
 </table>

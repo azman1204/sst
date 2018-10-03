@@ -50,6 +50,7 @@ class KaunselingController extends \yii\web\Controller {
         
         $kaunseling->catatan = $_POST['catatan'];
         $kaunseling->sebab_cicir = $_POST['sebab_cicir'];
+        $kaunseling->diagnosis_akhir = $_POST['diagnosis_akhir'];
 
         if ($kaunseling->validate()) {
             // validation ok. then baru save data

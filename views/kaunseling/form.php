@@ -21,8 +21,10 @@ if (isset($salah)) {
     <div class="row">
         <div class="col-sm-2">Status Ujian Saringan</div>
         <div class="col-sm-4" id="status"></div>
-        <div class="col-sm-1">Diagnosis Akhir</div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-2">Diagnosis Akhir</div>
+        <div class="col-sm-4">
+            <?= Html::dropDownList('diagnosis_akhir', $dat->diagnosis_akhir, Rujukan::dd('diagnosa', 'Y'), ['class'=>'form-control']) ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-2">Sebab Cicir</div>
