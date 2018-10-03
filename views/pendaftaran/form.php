@@ -1,7 +1,13 @@
 <?php
 use yii\helpers\Html;
 echo "<legend>Pendaftaran Saringan</legend>";
-echo $this->render('/pendaftaran/menu', ['current' => 1]);
+
+if (isset($new)) {
+    echo $this->render('/pendaftaran/menu2');
+} else {
+    echo $this->render('/pendaftaran/menu', ['current' => 1]);
+}
+
 if (isset($salah)) {
     echo app\mylib\Util::alert($salah);
 }

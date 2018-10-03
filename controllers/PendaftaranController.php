@@ -13,6 +13,7 @@ class PendaftaranController extends \yii\web\Controller {
         $p = new Pendaftaran();
         $p->kebenaran = 'Y'; // set default value
         $arr['dat'] = $p;
+        $arr['new'] = 'Y';
         return $this->render('form', $arr);
     }
     
@@ -36,9 +37,11 @@ class PendaftaranController extends \yii\web\Controller {
     // insert data ke table pendaftaran
     function actionSave() {
         $id = $_POST['id'];
+        $arr = $this->data();
         if (empty($id)) {
             // insert / new data
             $p = new Pendaftaran();
+            $arr['new'] = 'Y';
         } else {
             // update
             $p = Pendaftaran::findOne($id); // return a record obj
@@ -75,7 +78,6 @@ class PendaftaranController extends \yii\web\Controller {
             // validation ko
             // show err msg, show ori form
             $err = $p->errors; // return array of errors
-            $arr = $this->data();
             $arr['dat'] = $p;
             $arr['salah'] = $err;
             return $this->render('form', $arr);
