@@ -11,4 +11,13 @@ class Rujukan extends \yii\db\ActiveRecord {
         }
         return $arr;
     }
+    
+    static function getKeterangan($kat, $code) {
+        $ruj = self::find()->where(['kat' => $kat, 'kod' =>$code])->one();
+        if ($ruj) {
+            return $ruj->keterangan;
+        } else {
+            return '';
+        }
+    }
 }

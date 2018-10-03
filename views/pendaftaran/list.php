@@ -8,6 +8,7 @@ use app\models\UjianSaringan;
 use app\models\Rujukan;
 use app\models\UjianPengesahan;
 use app\models\KodUjian;
+use app\models\Kaunseling;
 ?>
 <legend>Senarai Pendaftaran</legend>
 <a href="index.php?r=pendaftaran/form" class="btn btn-success btn-sm">Tambah Rekod</a>
@@ -46,6 +47,12 @@ use app\models\KodUjian;
         <th>Tarikh Keputusan Diperolehi</th>
         <th>Kod Ujian</th>
         <th>Diagnosa Akhir</th>
+        <th>Telah Beri Kaunseling</th>
+        <th>Tarikh Kaunseling</th>
+        <th>Status ujian Saringan</th>
+        <th>Catatan</th>
+        <th>Sebab Cicir</th>
+        <th>Diagnosis Akhir</th>
     </tr>
     </thead>
     <?php
@@ -89,6 +96,11 @@ use app\models\KodUjian;
         } else if ($hb->diag_akhir === 'ref') {
             $diag_akhir = $dna->diag_akhir; // perlu dna
         }
+        
+        $kaunseling = Kaunseling::find()->where(['id_pendaftaran' => $data->id])->one();
+        if (! $kaunseling) {
+            $kaunseling = new Kaunseling();
+        }
     ?>
     <tr>
         <td><?= $bil++ ?></td>
@@ -125,6 +137,12 @@ use app\models\KodUjian;
         <td><?= $pengesahan->tkh_dnakeputusan ?></td>
         <td><?= $dna->kod_ujian ?></td>
         <td><?= $diag_akhir ?></td>
+        <td><?= $kaunseling->telah_kaunseling ?></td>
+        <td><?= $kaunseling->tkh_kaunseling ?></td>
+        <td><?= $kaunseling->sts_saringan ?></td>
+        <td><?= $kaunseling->catatan ?></td>
+        <td><?= Rujukan::getKeterangan('sebab_cicir', $kaunseling->sebab_cicir) ?></td>
+        <td><?= $kaunseling->diagnosis_akhir ?></td>
     </tr>
     <?php } ?>
 </table>
