@@ -4,6 +4,18 @@ use app\models\UjianPengesahan;
 use app\models\KodUjian;
 
 class UjianPengesahanController extends \yii\web\Controller {
+    public function beforeAction($action) {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        
+        if (\Yii::$app->user->isGuest) {
+            $this->redirect('index.php?r=login');
+            return false;
+        }
+        return true;
+    }
+    
     function actionForm() {
         $id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
         $ujian = UjianPengesahan::find()->where(['id_pendaftaran' => $id_pendaftaran])->one();

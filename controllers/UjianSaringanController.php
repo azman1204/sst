@@ -3,6 +3,18 @@ namespace app\controllers;
 use app\models\UjianSaringan;
 
 class UjianSaringanController extends \yii\web\Controller {
+    public function beforeAction($action) {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        
+        if (\Yii::$app->user->isGuest) {
+            $this->redirect('index.php?r=login');
+            return false;
+        }
+        return true;
+    }
+    
     // show form to key-in ujian saringan result
     // ?index.php?r=ujian-saringan/form
     function actionForm() {
