@@ -42,10 +42,13 @@ class PendaftaranController extends \yii\web\Controller {
 
     // shared data
     private function data() {
-        $sek = Sekolah::find()->all();
+        $user = \Yii::$app->user->identity;
+        $sek = Sekolah::find()->where(['id_klinik' => $user->id_klinik])->all();
         $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
         $etnik = KumpEtnik::find()->all();
         $arr['kump_etnik'] = ['0' => '--Sila Pilih--'] + ArrayHelper::map($etnik, 'id', 'nama');
+        // maklumat klinik user yg logged-in
+        $arr['klinik'] = \app\models\Klinik::findOne($user->id_klinik);
         return $arr;
     }
 
@@ -80,9 +83,9 @@ class PendaftaranController extends \yii\web\Controller {
             $p->jantina = '';
         }
 
-        $p->tkh_lahir = $_POST['tkh_lahir'];
+        $p->tkh_lahir  = $_POST['tkh_lahir'];
         $p->id_sekolah = $_POST['id_sekolah'];
-        $p->id_klinik = 1; // patut baca dari session user yg login
+        $p->id_klinik  = \Yii::$app->user->identity->id_klinik; // patut baca dari session user yg login
         // validation
         if ($p->validate()) {
             // validation ok. then baru save data
@@ -108,7 +111,7 @@ class PendaftaranController extends \yii\web\Controller {
 
     // list data dlm table
     function actionList() {
-        $data = Pendaftaran::find()->all(); // return array of obj pendaftaran
+        $data = Pendaftaran::find()->where(['id_klinik' => \Yii::$app->user->identity->id_klinik])->all(); // return array of obj pendaftaran
         // => double arrow array
         // -> single arrow obj
         $arr = ['dat' => $data];
