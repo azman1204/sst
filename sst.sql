@@ -30,12 +30,14 @@ CREATE TABLE `kaunseling` (
   `sebab_cicir` varchar(2) DEFAULT NULL,
   `diagnosis_akhir` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kaunseling` */
 
 insert  into `kaunseling`(`id`,`id_pendaftaran`,`telah_kaunseling`,`tkh_kaunseling`,`sts_saringan`,`catatan`,`sebab_cicir`,`diagnosis_akhir`) values 
 (1,13,'T',NULL,NULL,'test','2',NULL),
+(10,20,'T',NULL,NULL,'','0','2'),
+(9,12,'T',NULL,NULL,'','0','3'),
 (8,16,'Y','2018-10-30',NULL,'ok','1',NULL),
 (7,13,'T',NULL,NULL,'','0',NULL);
 
@@ -53,7 +55,7 @@ CREATE TABLE `klinik` (
 /*Data for the table `klinik` */
 
 insert  into `klinik`(`id`,`nama`,`id_pkd`) values 
-(1,'KK 1',NULL),
+(1,'Klinik Kesihatan 1',NULL),
 (2,'KK 2',NULL);
 
 /*Table structure for table `kod_ujian` */
@@ -69,16 +71,19 @@ CREATE TABLE `kod_ujian` (
   `diag_akhir` varchar(500) DEFAULT NULL,
   `analisis` varchar(500) DEFAULT NULL,
   `perlu_diag` char(1) DEFAULT NULL,
+  `ada_diag` char(1) DEFAULT 'Y',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kod_ujian` */
 
-insert  into `kod_ujian`(`id`,`kod_ujian`,`kat_ujian`,`kat_keputusan`,`tindakan_lanjut`,`diag_akhir`,`analisis`,`perlu_diag`) values 
-(1,'R1','HB','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,NULL,'Y'),
-(2,'N','HB','Normal',NULL,'Bukan Pembawa Thalassaemia Beta','No abnormality detected\r\n','T'),
-(3,'R1','DNA','Sampel ditolak','Ulang pengambilan sampel\r\n',NULL,'Rejected sample (need to repeat eg clotted,leaking,insufficient)*\r\n',''),
-(4,'NAD\r\n','DNA',NULL,'Kaunseling\r\n',NULL,'No abnormality detected\r\n','');
+insert  into `kod_ujian`(`id`,`kod_ujian`,`kat_ujian`,`kat_keputusan`,`tindakan_lanjut`,`diag_akhir`,`analisis`,`perlu_diag`,`ada_diag`) values 
+(1,'R1','HB','Sampel ditolak','Ulang pengambilan sampel\r\n','',NULL,'Y','N'),
+(2,'N','HB','Normal',NULL,'Bukan Pembawa Thalassaemia Beta','No abnormality detected\r\n','T','Y'),
+(3,'R1','DNA','Sampel ditolak','Ulang pengambilan sampel\r\n','...','Rejected sample (need to repeat eg clotted,leaking,insufficient)*\r\n','','N'),
+(4,'NAD\r\n','DNA',NULL,'Kaunseling\r\n','','No abnormality detected\r\n','','Y'),
+(5,'A1','HB','Pesakit Thal Alpha\r\n',NULL,'ref',NULL,'Y','Y'),
+(6,'AP1\r\n','DNA','Pembawa',NULL,'Pembawa Thalassaemia Alpha\r\n',NULL,NULL,'Y');
 
 /*Table structure for table `kump_etnik` */
 
@@ -147,7 +152,7 @@ CREATE TABLE `pendaftaran` (
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unik` (`nokp`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pendaftaran` */
 
@@ -156,7 +161,11 @@ insert  into `pendaftaran`(`id`,`nama`,`nokp`,`kebenaran`,`alamat`,`tel`,`jantin
 (13,'Zakaria bin Wahab','123456789014','Y','No 123','0162809998','L','2012-09-19',6,2,1,3,2,'2018-09-19 16:11:54',NULL,NULL,NULL),
 (14,'john doe','123456789018','T','test 123','0162809998','P','2015-09-14',3,2,1,3,3,'2018-09-19 16:23:48',NULL,NULL,NULL),
 (15,'Mr ABC','123456789019','Y','abc','0162809998','L','2016-09-20',2,2,1,3,2,'2018-09-20 11:43:49',NULL,NULL,NULL),
-(16,'john doe','123456789012','Y','test 123','0162809998','L','2004-10-12',13,2,1,3,2,'2018-10-02 16:04:00',NULL,NULL,NULL);
+(16,'john doe','123456789012','Y','test 123','0162809998','L','2004-10-12',13,2,1,3,2,'2018-10-02 16:04:00',NULL,NULL,NULL),
+(17,'JANE DOE','123456789020','Y','test','0162809998','P','2016-09-19',2,1,1,3,1,'2018-10-03 09:50:21',NULL,NULL,NULL),
+(18,'Liew Darren','123456789081','Y','123','0162809998','L','2000-10-16',17,2,1,3,2,'2018-10-03 12:11:58',NULL,NULL,NULL),
+(19,'Lee Cong Wei','123456789022','Y','123','0162809998','L','1998-10-24',19,3,2,3,3,'2018-10-03 12:14:30',NULL,NULL,NULL),
+(20,'Zee Jia','123456789088','Y','123','0162809998','L','2016-10-17',1,1,1,1,6,'2018-10-03 14:58:45',NULL,NULL,NULL);
 
 /*Table structure for table `rujukan` */
 
@@ -168,7 +177,7 @@ CREATE TABLE `rujukan` (
   `kod` varchar(25) DEFAULT NULL,
   `keterangan` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rujukan` */
 
@@ -182,7 +191,10 @@ insert  into `rujukan`(`id`,`kat`,`kod`,`keterangan`) values
 (7,'yt','T','Tidak'),
 (8,'sebab_cicir','1','Tidak Menjalani Ujian BC'),
 (9,'sebab_cicir','2','Enggan'),
-(10,'sebab_cicir','3','Pindah');
+(10,'sebab_cicir','3','Pindah'),
+(11,'diagnosa','1','Bukan Pembawa Thalassaemia Beta'),
+(12,'diagnosa','2','Pembawa Thalassaemia Alpha\r\n'),
+(13,'diagnosa','3','Pembawa Thalassaemia Beta\r\n');
 
 /*Table structure for table `sekolah` */
 
@@ -217,13 +229,14 @@ CREATE TABLE `ujian_pengesahan` (
   `tkh_dnakeputusan` date DEFAULT NULL,
   `kod_dnakeputusan` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `ujian_pengesahan` */
 
 insert  into `ujian_pengesahan`(`id`,`id_pendaftaran`,`tkh_hbhantar`,`tkh_hbkeputusan`,`kod_hbkeputusan`,`tkh_dnahantar`,`tkh_dnakeputusan`,`kod_dnakeputusan`) values 
 (2,13,'2018-10-02','2018-10-03','2','2018-10-16','2018-10-17','3'),
-(3,16,'2018-10-16','2018-10-16','2','2018-10-23','2018-10-24','3');
+(3,16,'2018-10-16','2018-10-16','2','2018-10-23','2018-10-24','3'),
+(4,14,'2018-10-03','2018-10-16','5','2018-10-03','2018-10-31','6');
 
 /*Table structure for table `ujian_saringan` */
 
@@ -268,14 +281,15 @@ CREATE TABLE `user` (
   `id_klinik` int(11) DEFAULT NULL,
   `level` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`user_id`,`pwd`,`name`,`id_klinik`,`level`) values 
 (3,'azman','1234','Azman Zakaria',1,'klinik'),
 (4,'abu','1234','Abu bin hassan',NULL,'admin'),
-(5,'ali','1234','Ali bin Bakar',NULL,'pkd');
+(5,'ali','1234','Ali bin Bakar',NULL,'pkd'),
+(6,'mina','1234','Mina bin ali',2,'klinik');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
