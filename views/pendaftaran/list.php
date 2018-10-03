@@ -6,6 +6,8 @@ use app\models\PecahanEtnik;
 use app\models\Sekolah;
 use app\models\UjianSaringan;
 use app\models\Rujukan;
+use app\models\UjianPengesahan;
+use app\models\KodUjian;
 ?>
 <legend>Senarai Pendaftaran</legend>
 <a href="index.php?r=pendaftaran/form" class="btn btn-success btn-sm">Tambah Rekod</a>
@@ -35,6 +37,15 @@ use app\models\Rujukan;
         <th>RDW</th>
         <th>RDC</th>
         <th>Diagnosis Sementara</th>
+        <th>Tarikh Hantar</th>
+        <th>Tarikh Keputusan Diperolehi</th>
+        <th>Kod Keputusan Ujian</th>
+        <th>Kategori Keputusan</th>
+        <th>Perlu Diagnosa Molekular</th>
+        <th>Tarikh Hantar</th>
+        <th>Tarikh Keputusan Diperolehi</th>
+        <th>Kod Ujian</th>
+        <th>Diagnosa Akhir</th>
     </tr>
     </thead>
     <?php
@@ -54,6 +65,29 @@ use app\models\Rujukan;
                 ->one();
         if (! $rujukan) {
             $rujukan = new Rujukan();
+        }
+        
+        $pengesahan = UjianPengesahan::find()->where(['id_pendaftaran' => $data->id])->one();
+        if (! $pengesahan) {
+            $pengesahan = new UjianPengesahan();
+        }
+        
+        $hb = KodUjian::findOne($pengesahan->kod_hbkeputusan);
+        if (! $hb) {
+            $hb = new KodUjian();
+        }
+        
+        $dna = KodUjian::findOne($pengesahan->kod_dnakeputusan);
+        if (! $dna) {
+            $dna = new KodUjian();
+        }
+        
+        if ($hb->ada_diag === 'T') {
+            $diag_akhir = ''; // tiada diagnoasa
+        } else if ($hb->diag_akhir !== 'ref') {
+            $diag_akhir = $hb->diag_akhir; // hb shj cukup
+        } else if ($hb->diag_akhir === 'ref') {
+            $diag_akhir = $dna->diag_akhir; // perlu dna
         }
     ?>
     <tr>
@@ -82,6 +116,15 @@ use app\models\Rujukan;
         <td><?= $saringan->rdw ?></td>
         <td><?= $saringan->rbc ?></td>
         <td><?= $rujukan->keterangan ?></td>
+        <td><?= $pengesahan->tkh_hbhantar ?></td>
+        <td><?= $pengesahan->tkh_hbkeputusan?></td>
+        <td><?= $hb->kod_ujian ?></td>
+        <td><?= $hb->kat_keputusan ?></td>
+        <td><?= $hb->perlu_diag ?></td>
+        <td><?= $pengesahan->tkh_dnahantar ?></td>
+        <td><?= $pengesahan->tkh_dnakeputusan ?></td>
+        <td><?= $dna->kod_ujian ?></td>
+        <td><?= $diag_akhir ?></td>
     </tr>
     <?php } ?>
 </table>
