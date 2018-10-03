@@ -5,6 +5,7 @@ use app\models\KumpEtnik;
 use app\models\PecahanEtnik;
 use app\models\Sekolah;
 use app\models\UjianSaringan;
+use app\models\Rujukan;
 ?>
 <legend>Senarai Pendaftaran</legend>
 <a href="index.php?r=pendaftaran/form" class="btn btn-success btn-sm">Tambah Rekod</a>
@@ -48,6 +49,12 @@ use app\models\UjianSaringan;
             // maklumat ujian saringan belum disimpan
             $saringan = new UjianSaringan();
         }
+        $rujukan = Rujukan::find()
+                ->where(['kat' => 'diag_temp', 'kod' => $saringan->id_diag_sementara])
+                ->one();
+        if (! $rujukan) {
+            $rujukan = new Rujukan();
+        }
     ?>
     <tr>
         <td><?= $bil++ ?></td>
@@ -68,13 +75,13 @@ use app\models\UjianSaringan;
         <td><?= $ke->nama ?></td>
         <td><?= $pe->nama_pecahan ?></td>
         <td><?= $saringan->tkh_ujian ?></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><?= $saringan->hb ?></td>
+        <td><?= $saringan->mch ?></td>
+        <td><?= $saringan->mcv ?></td>
+        <td><?= $saringan->mchc ?></td>
+        <td><?= $saringan->rdw ?></td>
+        <td><?= $saringan->rbc ?></td>
+        <td><?= $rujukan->keterangan ?></td>
     </tr>
     <?php } ?>
 </table>
