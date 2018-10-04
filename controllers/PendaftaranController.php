@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers;
-
+use yii\data\Pagination;
 use app\models\Pendaftaran; // import / load
 use yii\helpers\ArrayHelper;
 use app\models\Sekolah;
@@ -154,8 +154,12 @@ class PendaftaranController extends \yii\web\Controller {
         
         // ke klik directly dari menu ke list
         if (! isset($_POST['nokp'])) {
-            $data = $q->all();
+            $pagination = new Pagination(['totalCount' => $q->count()]);
+            $pagination->pageSize = 5;
+            $data = $q->offset($pagination->offset)
+                ->limit($pagination->limit)->all();
             $arr['dat'] = $data;
+            $arr['pagination'] = $pagination;
             return $this->render('list', $arr);
         }
         
@@ -204,10 +208,14 @@ class PendaftaranController extends \yii\web\Controller {
             $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
         }
         
-        $data = $q->all();
+        $pagination = new Pagination(['totalCount' => $q->count()]);
+        $pagination->pageSize = 5;
+        $data = $q->offset($pagination->offset)
+                ->limit($pagination->limit)->all();
         $arr['dat'] = $data;
         $arr['nokp'] = $nokp;
         $arr['nama'] = $nama;
+        $arr['pagination'] = $pagination;
         return $this->render('list', $arr);
     }
 

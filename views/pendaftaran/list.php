@@ -1,5 +1,5 @@
 <?php
-
+use yii\widgets\LinkPager;
 // import models
 use app\models\Klinik;
 use app\models\KumpEtnik;
@@ -124,7 +124,8 @@ use yii\helpers\Html;
             </tr>
         </thead>
         <?php
-        $bil = 1;
+        $bil = isset($_GET['page']) ? $_GET['page'] : 1;
+        $bil = ($bil - 1) * 5 + 1;
         foreach ($dat as $data) {
             $klinik = Klinik::findOne($data->id_klinik);
             $ke = KumpEtnik::findOne($data->kump_etnik);
@@ -220,6 +221,11 @@ use yii\helpers\Html;
     </table>
 </div>
 
+<?php
+echo LinkPager::widget([
+    'pagination' => $pagination,
+]);
+?>
 <style>
     #mylist {
         overflow: auto;
@@ -228,4 +234,19 @@ use yii\helpers\Html;
     .row {
         margin-top: 5px;
     }
+    
+    .pagination li {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    
+    .pagination li.active{
+        background-color: #336699;
+        color:white;
+    }
+    
+    li.active a{
+        color:white;
+    }
+    
 </style>
