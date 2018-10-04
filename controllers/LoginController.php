@@ -16,7 +16,7 @@ class LoginController extends \yii\web\Controller {
         if ($user) {
             // user exist
             \Yii::$app->user->login($user); // register user ke dlm session
-            return $this->redirect('index.php?r=pendaftaran/list');
+            return $this->redirect('index.php?r=home');
         } else {
             // user not exist
             \Yii::$app->session->setFlash('err', 'Kombinasi ID Pengguna dan Katalaluan Salah');

@@ -14,10 +14,7 @@ $user = \Yii::$app->user->identity;
         <div id="xwrapper">
             <div id="xheader"></div>
             <div id="xmenu">
-                Utama | 
-                <a href="index.php?r=pendaftaran/list">Pendaftaran</a> | 
-                Laporan | 
-                <a href="index.php?r=login/logout">Log Keluar (<?= $user->name ?>)</a>
+                <?= $this->render('menu', ['user'=>$user]) ?>
             </div>
             <div id="xbody">
                 <?php echo $content; ?>

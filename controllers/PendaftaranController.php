@@ -154,6 +154,7 @@ class PendaftaranController extends \yii\web\Controller {
         
         // ke klik directly dari menu ke list
         if (! isset($_POST['nokp'])) {
+            $q->andWhere(['like', 'created_dt', date('Y-m-d')]);
             $pagination = new Pagination(['totalCount' => $q->count()]);
             $pagination->pageSize = 5;
             $data = $q->offset($pagination->offset)

@@ -1,24 +1,26 @@
 #xwrapper {
-    border: 5px solid green;
+    border: 2px solid #ddd;
+    margin: 20px;
 }
 
 #xheader {
-    border: 2px solid red;
+    border: 2px solid #ddd;
     height: 100px;
 }
 
 #xmenu {
-    border: 2px solid blue;
     height: 24px;
+    margin-bottom: 20px;
 }
 
 #xbody {
-    border: 2px solid yellow;
+    border: 0px solid yellow;
     min-height: 500px;
     padding: 10px;
 }
 
 #xfooter {
-    border: 2px solid blue;
+    border: 2px solid #ddd;
+    background-color: #ddd;
     height: 24px;
 }
