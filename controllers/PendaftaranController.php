@@ -71,6 +71,12 @@ class PendaftaranController extends \yii\web\Controller {
         $p->alamat = $_POST['alamat'];
         $p->kump_etnik = $_POST['kump_etnik'];
         $p->umur = $_POST['umur'];
+        
+        if (isset($_POST['kes_indeks'])) {
+            $p->kes_indeks = 'Y';
+            $p->nama_indeks = $_POST['nama_indeks'];
+            $p->nokp_indeks = $_POST['nokp_indeks'];
+        }
 
         if (isset($_POST['pecahan_etnik'])) {
             $p->pecahan_etnik = $_POST['pecahan_etnik'];

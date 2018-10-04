@@ -65,15 +65,15 @@ if (isset($salah)) {
     <div class="row">
         <div class="col col-sm-2"></div>
         <div class="col col-sm-10">
-            <input type="checkbox" name="kes_indeks">
+            <input type="checkbox" name="kes_indeks" <?= $dat->kes_indeks === 'Y' ? 'checked' : '' ?>>
             KES INDEKS (<span style="color:red">Hanya Untuk Keluarga murid yang disahkan pembawa</span>)
         </div>
     </div>
     <div class="row" id="kes_indeks">
         <div class="col col-sm-2">Nama</div>
-        <div class="col col-sm-4"><input type="text" name="indeks_nama" class="form-control"></div>
+        <div class="col col-sm-4"><input type="text" name="nama_indeks" value="<?= $dat->nama_indeks ?>" class="form-control"></div>
         <div class="col col-sm-2">No KP</div>
-        <div class="col col-sm-4"><input type="text" name="indeks_nokp" class="form-control"></div>
+        <div class="col col-sm-4"><input type="text" name="nokp_indeks" value="<?= $dat->nokp_indeks ?>" class="form-control"></div>
     </div>
     
     <div class="row">
