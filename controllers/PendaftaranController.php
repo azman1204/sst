@@ -131,6 +131,10 @@ class PendaftaranController extends \yii\web\Controller {
 
     // list data dlm table
     function actionList() {
+        $nokp = '';
+        $nama = '';
+        $pkd  = '';
+        
         $user = \Yii::$app->user->identity;
         $level = $user->level;
         
@@ -142,17 +146,28 @@ class PendaftaranController extends \yii\web\Controller {
         // ke klik directly dari menu ke list
         if (! isset($_POST['nokp'])) {
             $data = $q->all();
-            return $this->render('list', ['dat' => $data]);
+            $arr['nokp'] = '';
+            $arr['nama'] = '';
+            $arr['dat'] = $data;
+            return $this->render('list', $arr);
         }
         
         $nokp = $_POST['nokp'];
         if (! empty($nokp)) {
+            if ($level === 'pkd') {
+                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
+                $q->andWhere(['id_pkd' => $user->id_pkd]);
+            }
             $q->andWhere(['=', 'nokp', $nokp]);
         }
         
         $nama = $_POST['nama'];
         if (! empty($nama)) {
-            $q->andWhere(['like', 'nama', $nama]);
+            if ($level === 'pkd') {
+                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
+                $q->andWhere(['id_pkd' => $user->id_pkd]);
+            }
+            $q->andWhere(['like', 'pendaftaran.nama', $nama]);
         }
         
         if ($level === 'pkd' || $level === 'hq') {
@@ -190,6 +205,8 @@ class PendaftaranController extends \yii\web\Controller {
         // => double arrow array
         // -> single arrow obj
         $arr = ['dat' => $data];
+        $arr['nokp'] = $nokp;
+        $arr['nama'] = $nama;
         return $this->render('list', $arr);
     }
 

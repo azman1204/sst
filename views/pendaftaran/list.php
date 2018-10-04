@@ -21,9 +21,9 @@ use yii\helpers\Html;
     <div class="card-body">
         <div class="row">
             <div class="col col-md-1">No KP</div>
-            <div class="col col-md-4"><input type="text" name="nokp" class="form-control"></div>
+            <div class="col col-md-4"><input value="<?= $nokp ?>" type="text" name="nokp" class="form-control"></div>
             <div class="col col-md-1">Nama</div>
-            <div class="col col-md-4"><input type="text" name="nama" class="form-control"></div>
+            <div class="col col-md-4"><input value="<?= $nama ?>" type="text" name="nama" class="form-control"></div>
         </div>
         <?php
         $user = \Yii::$app->user->identity;

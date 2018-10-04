@@ -16,6 +16,7 @@ use app\models\Rujukan;
 <script>
     $(function () {
         getKlinik();
+        getSekolah();
         $('[name=pkd]').change(getKlinik);
         function getKlinik() {
             var val = $('[name=pkd]').val();
