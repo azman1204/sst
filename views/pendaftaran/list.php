@@ -15,18 +15,29 @@ use app\models\Kaunseling;
 <div id="mylist">
 <table class="table table-bordered table-striped">
     <thead class="thead-dark">
-    <tr style="background-color:#000; color:white">
-        <td colspan="14"></td>
-        <td colspan="2">Kes Indeks</td>
-        <td></td>
-        <td colspan="6">Keputusan</td>
-        <td></td>
-        <td colspan="3">Hb Analisis</td>
-        <td colspan="2"></td>
-        <td colspan="3">DNA Analisis</td>
-        <td></td>
-        <td colspan="2">Kaunseling Selepas Ujian</td>
-        <td colspan="4"></td>
+        <tr style="color:white; font-weight: bold;">
+        <td colspan="16" style="background-color:#00b3ee">Pendaftaran</td>
+        <td colspan="8" style="background-color:green">Ujian Saringan</td>
+        <td colspan="8" style="background-color:red">Ujian Pengesahan</td>
+        <td colspan="8" style="background-color:gray"></td>
+    </tr>
+    <tr>
+        <th colspan="16"></th>
+        <th colspan="7">FBC</th>
+        <th colspan="16"></th>
+    </tr>
+    <tr>
+        <th colspan="14"></th>
+        <th colspan="2">Kes Indeks</th>
+        <th></th>
+        <th colspan="6">Keputusan</th>
+        <th></th>
+        <th colspan="3">Hb Analisis</th>
+        <th colspan="2"></th>
+        <th colspan="3">DNA Analisis</th>
+        <th></th>
+        <th colspan="2">Kaunseling Selepas Ujian</th>
+        <th colspan="4"></th>
     </tr>
     <tr>
         <th>Bil</th>
