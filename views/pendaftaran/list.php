@@ -25,16 +25,16 @@ use yii\helpers\Html;
             <div class="col col-md-1">Nama</div>
             <div class="col col-md-4"><input type="text" name="nama" class="form-control"></div>
         </div>
-        <div class="row">
-            <div class="col col-md-1">Pejabat Kesihatan Daerah</div>
-            <div class="col col-md-4"><?= Html::dropDownList('pkd', '', Rujukan::dd('pkd', 'Y'), ['class' => 'form-control']) ?></div>
-            <div class="col col-md-1">Klinik</div>
-            <div class="col col-md-4" id="my-klinik"></div>
-        </div>
-        <div class="row">
-            <div class="col col-md-1">Sekolah</div>
-            <div class="col col-md-4" id="my-sekolah"></div>
-        </div>
+        <?php
+        $user = \Yii::$app->user->identity;
+        if ($user->level === 'hq') {
+            echo $this->render('cari_hq');
+        } else if ($user->level === 'pkd') {
+            echo $this->render('cari_pkd');
+        } else {
+            echo $this->render('cari_klinik');
+        }
+        ?>
         <div class="row">
             <div class="col col-md-1">Tarikh Dari</div>
             <div class="col col-md-4"><input type="date" name="tkh_dari" class="form-control"></div>
@@ -215,24 +215,6 @@ use yii\helpers\Html;
 <?php } ?>
     </table>
 </div>
-
-<script>
-    $(function () {
-        getKlinik();
-        $('[name=pkd]').change(getKlinik);
-        function getKlinik() {
-            var val = $('[name=pkd]').val();
-            $('#my-klinik').load('index.php?r=pendaftaran/klinik&pkd=' + val, function () {
-                $('[name=klinik').change(getSekolah);
-            });
-        }
-        
-        function getSekolah() {
-            var val = $('[name=klinik]').val();
-            $('#my-sekolah').load('index.php?r=pendaftaran/sekolah&klinik=' + val);
-        }
-    });
-</script>
 
 <style>
     #mylist {

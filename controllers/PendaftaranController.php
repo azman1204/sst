@@ -131,18 +131,23 @@ class PendaftaranController extends \yii\web\Controller {
 
     // list data dlm table
     function actionList() {
-        $where = [];
-        $q = Pendaftaran::find()->where($where); // return array of obj pendaftaran
+        $user = \Yii::$app->user->identity;
+        $level = $user->level;
         
+        $q = Pendaftaran::find()->where([]);
+        if ($level === 'klinik') {
+            $q = $q->andWhere(['id_klinik' => $user->id_klinik]);
+        }
+        
+        // ke klik directly dari menu ke list
         if (! isset($_POST['nokp'])) {
-            // klik dari menu ke list
             $data = $q->all();
             return $this->render('list', ['dat' => $data]);
         }
         
         $nokp = $_POST['nokp'];
         if (! empty($nokp)) {
-            $where['nokp'] = $nokp;
+            $q->andWhere(['=', 'nokp', $nokp]);
         }
         
         $nama = $_POST['nama'];
@@ -150,9 +155,11 @@ class PendaftaranController extends \yii\web\Controller {
             $q->andWhere(['like', 'nama', $nama]);
         }
         
-        $klinik = $_POST['klinik'];
-        if ($klinik !== '0') {
-            $q->andWhere(['=', 'id_klinik', $klinik]);
+        if ($level === 'pkd' || $level === 'hq') {
+            $klinik = $_POST['klinik'];
+            if ($klinik !== '0') {
+                $q->andWhere(['=', 'id_klinik', $klinik]);
+            }
         }
         
         if (isset($_POST['sekolah'])) {
@@ -160,6 +167,23 @@ class PendaftaranController extends \yii\web\Controller {
             if ($sek !== '0') {
                 $q->andWhere(['=', 'id_sekolah', $sek]);
             }
+        }
+        
+        // list semua data dibawah sesuatu PKD
+        if ($level === 'hq') {
+            $pkd = $_POST['pkd'];
+            if ($pkd !== '0' && $klinik === '0') {
+                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
+                $q->andWhere(['id_pkd' => $pkd]);
+            }
+        }
+        
+        // search by date from .. to
+        $tkh_dari = $_POST['tkh_dari'];
+        $tkh_hingga = $_POST['tkh_hingga'];
+        if (!empty($tkh_dari) && !empty($tkh_hingga)) {
+            $q->andWhere(['>=', 'created_dt', $tkh_dari . ' 00:00:00']);
+            $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
         }
         
         $data = $q->all();
