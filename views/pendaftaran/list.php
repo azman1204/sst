@@ -15,6 +15,19 @@ use app\models\Kaunseling;
 <div id="mylist">
 <table class="table table-bordered table-striped">
     <thead class="thead-dark">
+    <tr style="background-color:#000; color:white">
+        <td colspan="14"></td>
+        <td colspan="2">Kes Indeks</td>
+        <td></td>
+        <td colspan="6">Keputusan</td>
+        <td></td>
+        <td colspan="3">Hb Analisis</td>
+        <td colspan="2"></td>
+        <td colspan="3">DNA Analisis</td>
+        <td></td>
+        <td colspan="2">Kaunseling Selepas Ujian</td>
+        <td colspan="4"></td>
+    </tr>
     <tr>
         <th>Bil</th>
         <th>Tindakan</th>
@@ -30,6 +43,8 @@ use app\models\Kaunseling;
         <th>Klinik Kesihatan</th>
         <th>Kumpulan Etnik</th>
         <th>Pecahan Etnik</th>
+        <th>Nama</th>
+        <th>No KP</th>
         <th>Tarikh Ujian</th>
         <th>HB</th>
         <th>MCH</th>
@@ -120,6 +135,8 @@ use app\models\Kaunseling;
         <td><?= $klinik->nama ?></td>
         <td><?= $ke->nama ?></td>
         <td><?= $pe->nama_pecahan ?></td>
+        <td><?= $data->nama_indeks ?></td>
+        <td><?= $data->nokp_indeks ?></td>
         <td><?= $saringan->tkh_ujian ?></td>
         <td><?= $saringan->hb ?></td>
         <td><?= $saringan->mch ?></td>
