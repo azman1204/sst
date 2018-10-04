@@ -48,10 +48,12 @@ use yii\helpers\Html;
     </div>
 </div>
 </form>
-
 <br>
+<?php if ($user-> level === 'klinik') { ?>
 <a href="index.php?r=pendaftaran/form" class="btn btn-success btn-sm">Tambah Rekod</a>
 <br><br>
+<?php } ?>
+
 <div id="mylist">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -81,7 +83,7 @@ use yii\helpers\Html;
             </tr>
             <tr>
                 <th>Bil</th>
-                <th>Tindakan</th>
+                <?php if ($user-> level === 'klinik') { ?><th>Tindakan</th><?php } ?>
                 <th>Nama</th>
                 <th>No KP</th>
                 <th>Kebenaran Bertulis</th>
@@ -170,10 +172,12 @@ use yii\helpers\Html;
             ?>
             <tr>
                 <td><?= $bil++ ?></td>
+                <?php if ($user-> level === 'klinik') { ?>
                 <td>
                     <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="fa fa-pencil"></a>
                     <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash"></a>
                 </td>
+                <?php } ?>
                 <td><?= $data->nama ?></td>
                 <td><?= $data->nokp ?></td>
                 <td><?= $data->kebenaran === 'Y' ? 'YA' : 'TIDAK' ?></td>
