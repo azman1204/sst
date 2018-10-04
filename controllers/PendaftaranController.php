@@ -116,24 +116,28 @@ class PendaftaranController extends \yii\web\Controller {
     }
     
     // called by AJAX
-    function actionKlinik($pkd) {
+    function actionKlinik($pkd, $s = '') {
         $klinik = \app\models\Klinik::find()->where(['id_pkd' => $pkd])->all();
         $arr = [0 => '--sila pilih--'] + ArrayHelper::map($klinik, 'id', 'nama');
-        echo \yii\helpers\Html::dropDownList('klinik', '', $arr, ['class' => 'form-control']);
+        echo \yii\helpers\Html::dropDownList('klinik', $s, $arr, ['class' => 'form-control']);
     }
     
     // called by AJAX
-    function actionSekolah($klinik) {
+    function actionSekolah($klinik, $s='') {
         $sek = \app\models\Sekolah::find()->where(['id_klinik' => $klinik])->all();
         $arr = [0 => '--sila pilih--'] + ArrayHelper::map($sek, 'id', 'nama');
-        echo \yii\helpers\Html::dropDownList('sekolah', '', $arr, ['class' => 'form-control']);
+        echo \yii\helpers\Html::dropDownList('sekolah', $s, $arr, ['class' => 'form-control']);
     }
 
     // list data dlm table
     function actionList() {
-        $nokp = '';
-        $nama = '';
-        $pkd  = '';
+        $arr['nokp'] = '';
+        $arr['nama'] = '';
+        $arr['pkd']  = '';
+        $arr['klinik'] = '';
+        $arr['sek'] = '';
+        $arr['tkh_dari'] = '';
+        $arr['tkh_hingga'] = '';
         
         $user = \Yii::$app->user->identity;
         $level = $user->level;
@@ -141,37 +145,33 @@ class PendaftaranController extends \yii\web\Controller {
         $q = Pendaftaran::find()->where([]);
         if ($level === 'klinik') {
             $q = $q->andWhere(['id_klinik' => $user->id_klinik]);
+        } else if ($level === 'pkd') {
+            $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
+            $q->andWhere(['id_pkd' => $user->id_pkd]);
+        } else if ($level == 'hq') {
+            $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
         }
         
         // ke klik directly dari menu ke list
         if (! isset($_POST['nokp'])) {
             $data = $q->all();
-            $arr['nokp'] = '';
-            $arr['nama'] = '';
             $arr['dat'] = $data;
             return $this->render('list', $arr);
         }
         
         $nokp = $_POST['nokp'];
         if (! empty($nokp)) {
-            if ($level === 'pkd') {
-                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
-                $q->andWhere(['id_pkd' => $user->id_pkd]);
-            }
             $q->andWhere(['=', 'nokp', $nokp]);
         }
         
         $nama = $_POST['nama'];
         if (! empty($nama)) {
-            if ($level === 'pkd') {
-                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
-                $q->andWhere(['id_pkd' => $user->id_pkd]);
-            }
             $q->andWhere(['like', 'pendaftaran.nama', $nama]);
         }
         
         if ($level === 'pkd' || $level === 'hq') {
             $klinik = $_POST['klinik'];
+            $arr['klinik'] = $klinik;
             if ($klinik !== '0') {
                 $q->andWhere(['=', 'id_klinik', $klinik]);
             }
@@ -179,6 +179,7 @@ class PendaftaranController extends \yii\web\Controller {
         
         if (isset($_POST['sekolah'])) {
             $sek = $_POST['sekolah'];
+            $arr['sek'] = $sek;
             if ($sek !== '0') {
                 $q->andWhere(['=', 'id_sekolah', $sek]);
             }
@@ -187,8 +188,8 @@ class PendaftaranController extends \yii\web\Controller {
         // list semua data dibawah sesuatu PKD
         if ($level === 'hq') {
             $pkd = $_POST['pkd'];
+            $arr['pkd'] = $pkd;
             if ($pkd !== '0' && $klinik === '0') {
-                $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
                 $q->andWhere(['id_pkd' => $pkd]);
             }
         }
@@ -196,15 +197,15 @@ class PendaftaranController extends \yii\web\Controller {
         // search by date from .. to
         $tkh_dari = $_POST['tkh_dari'];
         $tkh_hingga = $_POST['tkh_hingga'];
+        $arr['tkh_dari'] = $tkh_dari;
+        $arr['tkh_hingga'] = $tkh_hingga;
         if (!empty($tkh_dari) && !empty($tkh_hingga)) {
             $q->andWhere(['>=', 'created_dt', $tkh_dari . ' 00:00:00']);
             $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
         }
         
         $data = $q->all();
-        // => double arrow array
-        // -> single arrow obj
-        $arr = ['dat' => $data];
+        $arr['dat'] = $data;
         $arr['nokp'] = $nokp;
         $arr['nama'] = $nama;
         return $this->render('list', $arr);

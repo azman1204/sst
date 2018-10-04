@@ -28,18 +28,18 @@ use yii\helpers\Html;
         <?php
         $user = \Yii::$app->user->identity;
         if ($user->level === 'hq') {
-            echo $this->render('cari_hq');
+            echo $this->render('cari_hq', ['pkd' =>$pkd, 'klinik'=>$klinik, 'sek'=>$sek]);
         } else if ($user->level === 'pkd') {
-            echo $this->render('cari_pkd');
+            echo $this->render('cari_pkd',['klinik'=>$klinik, 'sek'=>$sek]);
         } else {
-            echo $this->render('cari_klinik');
+            echo $this->render('cari_klinik', ['sek2' =>$sek]);
         }
         ?>
         <div class="row">
             <div class="col col-md-1">Tarikh Dari</div>
-            <div class="col col-md-4"><input type="date" name="tkh_dari" class="form-control"></div>
+            <div class="col col-md-4"><input value="<?= $tkh_dari ?>" type="date" name="tkh_dari" class="form-control"></div>
             <div class="col col-md-1">Tarikh Hingga</div>
-            <div class="col col-md-4"><input type="date" name="tkh_hingga" class="form-control"></div>
+            <div class="col col-md-4"><input value="<?= $tkh_hingga ?>" type="date" name="tkh_hingga" class="form-control"></div>
         </div>
         <div class="row">
             <div class="col col-md-1"></div>
