@@ -131,7 +131,38 @@ class PendaftaranController extends \yii\web\Controller {
 
     // list data dlm table
     function actionList() {
-        $data = Pendaftaran::find()->where(['id_klinik' => \Yii::$app->user->identity->id_klinik])->all(); // return array of obj pendaftaran
+        $where = [];
+        $q = Pendaftaran::find()->where($where); // return array of obj pendaftaran
+        
+        if (! isset($_POST['nokp'])) {
+            // klik dari menu ke list
+            $data = $q->all();
+            return $this->render('list', ['dat' => $data]);
+        }
+        
+        $nokp = $_POST['nokp'];
+        if (! empty($nokp)) {
+            $where['nokp'] = $nokp;
+        }
+        
+        $nama = $_POST['nama'];
+        if (! empty($nama)) {
+            $q->andWhere(['like', 'nama', $nama]);
+        }
+        
+        $klinik = $_POST['klinik'];
+        if ($klinik !== '0') {
+            $q->andWhere(['=', 'id_klinik', $klinik]);
+        }
+        
+        if (isset($_POST['sekolah'])) {
+            $sek = $_POST['sekolah'];
+            if ($sek !== '0') {
+                $q->andWhere(['=', 'id_sekolah', $sek]);
+            }
+        }
+        
+        $data = $q->all();
         // => double arrow array
         // -> single arrow obj
         $arr = ['dat' => $data];
