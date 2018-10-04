@@ -7,6 +7,7 @@ $user = \Yii::$app->user->identity;
         <title>Sistem Saringan Talasemia (SST)</title>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/global.css" rel="stylesheet" type="text/css"/>
+        <link href="font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <script src="jquery-3.2.1.min.js"></script>
     </head>
     <body>

@@ -131,8 +131,8 @@ use app\models\Kaunseling;
     <tr>
         <td><?= $bil++ ?></td>
         <td>
-            <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="btn btn-info">Edit</a>
-            <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="btn btn-danger">Hapus</a>
+            <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="fa fa-pencil"></a>
+            <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash"></a>
         </td>
         <td><?= $data->nama ?></td>
         <td><?= $data->nokp ?></td>
