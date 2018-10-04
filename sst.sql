@@ -50,13 +50,14 @@ CREATE TABLE `klinik` (
   `nama` varchar(100) DEFAULT NULL,
   `id_pkd` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `klinik` */
 
 insert  into `klinik`(`id`,`nama`,`id_pkd`) values 
-(1,'Klinik Kesihatan 1',NULL),
-(2,'KK 2',NULL);
+(1,'Klinik Kesihatan 1',2),
+(2,'Klinik Kesihatan 2',1),
+(3,'Klinik Kesihatan 3',2);
 
 /*Table structure for table `kod_ujian` */
 
@@ -146,6 +147,9 @@ CREATE TABLE `pendaftaran` (
   `id_klinik` int(11) DEFAULT NULL COMMENT 'see table klinik',
   `kump_etnik` int(11) DEFAULT NULL,
   `pecahan_etnik` int(11) DEFAULT NULL,
+  `kes_indeks` char(1) DEFAULT 'T',
+  `nama_indeks` varchar(50) DEFAULT NULL,
+  `nokp_indeks` varchar(12) DEFAULT NULL,
   `created_dt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` int(11) DEFAULT NULL COMMENT 'see user.id',
   `updated_dt` datetime DEFAULT NULL,
@@ -156,16 +160,16 @@ CREATE TABLE `pendaftaran` (
 
 /*Data for the table `pendaftaran` */
 
-insert  into `pendaftaran`(`id`,`nama`,`nokp`,`kebenaran`,`alamat`,`tel`,`jantina`,`tkh_lahir`,`umur`,`id_sekolah`,`id_klinik`,`kump_etnik`,`pecahan_etnik`,`created_dt`,`created_by`,`updated_dt`,`updated_by`) values 
-(12,'azman zakaria','123456789013','Y','test','0162809998','L','2004-10-13',13,1,1,3,1,'2018-09-19 15:56:29',NULL,NULL,NULL),
-(13,'Zakaria bin Wahab','123456789014','Y','No 123','0162809998','L','2012-09-19',6,2,1,3,2,'2018-09-19 16:11:54',NULL,NULL,NULL),
-(14,'john doe','123456789018','T','test 123','0162809998','P','2015-09-14',3,2,1,3,3,'2018-09-19 16:23:48',NULL,NULL,NULL),
-(15,'Mr ABC','123456789019','Y','abc','0162809998','L','2016-09-20',2,2,1,3,2,'2018-09-20 11:43:49',NULL,NULL,NULL),
-(16,'john doe','123456789012','Y','test 123','0162809998','L','2004-10-12',13,2,1,3,2,'2018-10-02 16:04:00',NULL,NULL,NULL),
-(17,'JANE DOE','123456789020','Y','test','0162809998','P','2016-09-19',2,1,1,3,1,'2018-10-03 09:50:21',NULL,NULL,NULL),
-(18,'Liew Darren','123456789081','Y','123','0162809998','L','2000-10-16',17,2,1,3,2,'2018-10-03 12:11:58',NULL,NULL,NULL),
-(19,'Lee Cong Wei','123456789022','Y','123','0162809998','L','1998-10-24',19,3,2,3,3,'2018-10-03 12:14:30',NULL,NULL,NULL),
-(20,'Zee Jia','123456789088','Y','123','0162809998','L','2016-10-17',1,1,1,1,6,'2018-10-03 14:58:45',NULL,NULL,NULL);
+insert  into `pendaftaran`(`id`,`nama`,`nokp`,`kebenaran`,`alamat`,`tel`,`jantina`,`tkh_lahir`,`umur`,`id_sekolah`,`id_klinik`,`kump_etnik`,`pecahan_etnik`,`kes_indeks`,`nama_indeks`,`nokp_indeks`,`created_dt`,`created_by`,`updated_dt`,`updated_by`) values 
+(12,'azman zakaria','123456789013','Y','test','0162809998','L','2004-10-13',13,1,1,3,1,'Y','asdads','1234','2018-09-19 15:56:29',NULL,NULL,NULL),
+(13,'Zakaria bin Wahab','123456789014','Y','No 123','0162809998','L','2012-09-19',6,2,1,3,2,'T',NULL,NULL,'2018-09-19 16:11:54',NULL,NULL,NULL),
+(14,'john doe','123456789018','T','test 123','0162809998','P','2015-09-14',3,2,1,3,3,'T',NULL,NULL,'2018-09-19 16:23:48',NULL,NULL,NULL),
+(15,'Mr ABC','123456789019','Y','abc','0162809998','L','2016-09-20',2,2,1,3,2,'T',NULL,NULL,'2018-09-20 11:43:49',NULL,NULL,NULL),
+(16,'john doe','123456789012','Y','test 123','0162809998','L','2004-10-12',13,2,1,3,2,'T',NULL,NULL,'2018-10-02 16:04:00',NULL,NULL,NULL),
+(17,'JANE DOE','123456789020','Y','test','0162809998','P','2016-09-19',2,1,1,3,1,'T',NULL,NULL,'2018-10-03 09:50:21',NULL,NULL,NULL),
+(18,'Liew Darren','123456789081','Y','123','0162809998','L','2000-10-16',17,2,1,3,2,'T',NULL,NULL,'2018-10-03 12:11:58',NULL,NULL,NULL),
+(19,'Lee Cong Wei','123456789022','Y','123','0162809998','L','1998-10-24',19,3,2,3,3,'T',NULL,NULL,'2018-10-03 12:14:30',NULL,NULL,NULL),
+(20,'Zee Jia','123456789088','Y','123','0162809998','L','2016-10-17',1,1,1,1,6,'T',NULL,NULL,'2018-10-03 14:58:45',NULL,NULL,NULL);
 
 /*Table structure for table `rujukan` */
 
@@ -177,7 +181,7 @@ CREATE TABLE `rujukan` (
   `kod` varchar(25) DEFAULT NULL,
   `keterangan` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rujukan` */
 
@@ -194,7 +198,9 @@ insert  into `rujukan`(`id`,`kat`,`kod`,`keterangan`) values
 (10,'sebab_cicir','3','Pindah'),
 (11,'diagnosa','1','Bukan Pembawa Thalassaemia Beta'),
 (12,'diagnosa','2','Pembawa Thalassaemia Alpha\r\n'),
-(13,'diagnosa','3','Pembawa Thalassaemia Beta\r\n');
+(13,'diagnosa','3','Pembawa Thalassaemia Beta\r\n'),
+(14,'pkd','1','Pejabat Kesihatan Titiwangsa'),
+(15,'pkd','2','Pejabat Kesihatan Lembah Pantai');
 
 /*Table structure for table `sekolah` */
 
@@ -280,16 +286,18 @@ CREATE TABLE `user` (
   `name` varchar(50) DEFAULT NULL,
   `id_klinik` int(11) DEFAULT NULL,
   `level` varchar(25) DEFAULT NULL,
+  `id_pkd` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`user_id`,`pwd`,`name`,`id_klinik`,`level`) values 
-(3,'azman','1234','Azman Zakaria',1,'klinik'),
-(4,'abu','1234','Abu bin hassan',NULL,'admin'),
-(5,'ali','1234','Ali bin Bakar',NULL,'pkd'),
-(6,'mina','1234','Mina bin ali',2,'klinik');
+insert  into `user`(`id`,`user_id`,`pwd`,`name`,`id_klinik`,`level`,`id_pkd`) values 
+(3,'azman','1234','Azman Zakaria',1,'klinik',NULL),
+(4,'abu','1234','Abu bin hassan',NULL,'hq',NULL),
+(5,'ali','1234','Ali bin Bakar',NULL,'pkd','1'),
+(6,'mina','1234','Mina bin ali',2,'klinik',NULL),
+(7,'chong','1234','Chong Wei',NULL,'pkd','2');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
