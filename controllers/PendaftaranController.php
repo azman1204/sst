@@ -114,6 +114,20 @@ class PendaftaranController extends \yii\web\Controller {
         echo \yii\helpers\Html::dropDownList('pecahan_etnik', $id_pecahan, $pecahan_etnik, ['class' => 'form-control']);
         //echo "test...$id";
     }
+    
+    // called by AJAX
+    function actionKlinik($pkd) {
+        $klinik = \app\models\Klinik::find()->where(['id_pkd' => $pkd])->all();
+        $arr = [0 => '--sila pilih--'] + ArrayHelper::map($klinik, 'id', 'nama');
+        echo \yii\helpers\Html::dropDownList('klinik', '', $arr, ['class' => 'form-control']);
+    }
+    
+    // called by AJAX
+    function actionSekolah($klinik) {
+        $sek = \app\models\Sekolah::find()->where(['id_klinik' => $klinik])->all();
+        $arr = [0 => '--sila pilih--'] + ArrayHelper::map($sek, 'id', 'nama');
+        echo \yii\helpers\Html::dropDownList('sekolah', '', $arr, ['class' => 'form-control']);
+    }
 
     // list data dlm table
     function actionList() {
