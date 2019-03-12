@@ -3,6 +3,37 @@ namespace app\controllers;
 use app\models\User;
 
 class UserController extends \yii\web\Controller {
+    function actionAccount() {
+        return $this->render('account');
+    }
+    
+    function actionPassword() {
+        $err = [];
+        $pwd = $_POST['pwd_old'];
+        $pwd_new = $_POST['pwd_new'];
+        $pwd_confirm = $_POST['pwd_confirm'];
+        $user = User::find()->where(['user_id' => \Yii::$app->user->identity->user_id, 'pwd' => $pwd])->one();
+        if (! $user) {
+            $err[] = ['Katalaluan Asal Salah'];
+        }
+        
+        if ($pwd_new !== $pwd_confirm) {
+            $err[] = ['Katalaluan Baru dan Pengesahan Katalaluan Tidak Sama'];
+        }
+        
+        if (strlen($pwd_new) < 5) {
+            $err[] = ['Katalaluan haruslah sekurang-kurangnya 5 karakter'];
+        }
+        
+        if (count($err) == 0) {
+            $msg[] = ['Katalaluan telah berjaya dikemaskini'];
+            $data['msg'] = $msg;
+        } else {
+            $data['err'] = $err;
+        }
+        return $this->render('account', $data);
+    }
+    
     // show login form
     function actionList() {
         $users = User::find()->all();

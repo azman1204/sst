@@ -12,7 +12,7 @@ $user = \Yii::$app->user->identity;
     </head>
     <body>
         <div id="xwrapper">
-            <div id="xheader"></div>
+            <div id="xheader"><img src="images/header.png"></div>
             <div id="xmenu">
                 <?= $this->render('menu', ['user'=>$user]) ?>
             </div>

@@ -3,13 +3,13 @@ use yii\helpers\Html;
 use app\models\Rujukan;
 ?>
 <div class="row">
-    <div class="col col-md-1">Pejabat Kesihatan Daerah</div>
+    <div class="col col-md-2">Pejabat Kesihatan Daerah</div>
     <div class="col col-md-4"><?= Html::dropDownList('pkd', $pkd, Rujukan::dd('pkd', 'Y'), ['class' => 'form-control']) ?></div>
-    <div class="col col-md-1">Klinik</div>
+    <div class="col col-md-2">Klinik</div>
     <div class="col col-md-4" id="my-klinik"></div>
 </div>
 <div class="row">
-    <div class="col col-md-1">Sekolah</div>
+    <div class="col col-md-2">Sekolah</div>
     <div class="col col-md-4" id="my-sekolah"></div>
 </div>
 

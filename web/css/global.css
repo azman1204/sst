@@ -1,11 +1,20 @@
+body {
+    background-color: #ddd;
+}
+
 #xwrapper {
-    border: 2px solid #ddd;
+    border: 3px solid #999;
     margin: 20px;
+    background-color: #fff;
+    box-shadow: 5px 5px 5px #999;
+    border-radius: 10px;
 }
 
 #xheader {
     border: 2px solid #ddd;
-    height: 100px;
+    height: 130px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 #xmenu {

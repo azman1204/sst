@@ -22,9 +22,9 @@ $user = \Yii::$app->user->identity;
     <div class="card-header">Carian</div>
     <div class="card-body">
         <div class="row">
-            <div class="col col-md-1">No KP</div>
+            <div class="col col-md-2">No KP</div>
             <div class="col col-md-4"><input value="<?= $nokp ?>" type="text" name="nokp" class="form-control"></div>
-            <div class="col col-md-1">Nama</div>
+            <div class="col col-md-2">Nama</div>
             <div class="col col-md-4"><input value="<?= $nama ?>" type="text" name="nama" class="form-control"></div>
         </div>
         <?php
@@ -37,26 +37,26 @@ $user = \Yii::$app->user->identity;
         }
         ?>
         <div class="row">
-            <div class="col col-md-1">Tarikh Dari</div>
+            <div class="col col-md-2">Tarikh Dari</div>
             <div class="col col-md-4"><input value="<?= $tkh_dari ?>" type="date" name="tkh_dari" class="form-control"></div>
-            <div class="col col-md-1">Tarikh Hingga</div>
+            <div class="col col-md-2">Tarikh Hingga</div>
             <div class="col col-md-4"><input value="<?= $tkh_hingga ?>" type="date" name="tkh_hingga" class="form-control"></div>
         </div>
         <div class="row">
-            <div class="col col-md-1">Status Ujian Saringan</div>
+            <div class="col col-md-2">Status Ujian Saringan</div>
             <div class="col col-md-4">
                 <select class="form-control">
                     <option value="1">SELESAI</option>
                     <option value="2">TIDAK SELESAI</option>
                 </select>
             </div>
-            <div class="col-md-1">Diagnosis Sementara</div>
+            <div class="col-md-2">Diagnosis Sementara</div>
             <div class="col-md-4">
                 <?= Html::dropDownList('id_diag_sementara', '', Rujukan::dd('diag_temp'), ['class' => 'form-control']) ?>
             </div>
         </div>
         <div class="row">
-            <div class="col col-md-1"></div>
+            <div class="col col-md-2"></div>
             <div class="col col-md-4"><input type="submit" value="Cari" class="btn btn-primary"></div>
         </div>
     </div>

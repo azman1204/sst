@@ -19,13 +19,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.php?r=report/reten">Laporan</a>
             </li>
-            <?php if(Yii::$app->user->identity->level == 'adm') : ?>
+            <?php if(Yii::$app->user->identity->level == 'ADM') : ?>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?r=user/list">Pengguna Sistem</a>
             </li>
             <?php endif; ?>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?r=account/index">Akaun</a>
+                <a class="nav-link" href="index.php?r=user/account">Akaun</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
