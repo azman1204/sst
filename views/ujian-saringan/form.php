@@ -5,6 +5,8 @@ echo "<legend>Keputusan Ujian Saringan</legend>";
 echo $this->render('/pendaftaran/menu', ['current' => 2]);
 if (isset($salah)) {
     echo app\mylib\Util::alert($salah);
+} else if(isset($msg)) {
+    echo $msg;
 }
 ?>
 
@@ -43,10 +45,15 @@ if (isset($salah)) {
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-1">Catatan</div>
+        <div class="col-sm-9">
+            <textarea class="form-control" name="catatan"><?= $dat->catatan ?></textarea>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-4"><input type="submit" value="Simpan" class="btn btn-primary"></div>
     </div>
-    
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
     <input type="hidden" name="id" value="<?= $dat->id ?>"> <!-- PK -->
 </form>

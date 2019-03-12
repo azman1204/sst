@@ -53,12 +53,14 @@ class UjianSaringanController extends \yii\web\Controller {
         $dat->tkh_ujian = $_POST['tkh_ujian'];
         $dat->id_diag_sementara = $_POST['id_diag_sementara'];
         $dat->menjalani_ujian = $_POST['menjalani_ujian'];
+        $dat->catatan = $_POST['catatan'];
         
         // validation
         if ($dat->validate()) {
             // validation ok. then baru save data
             $dat->save();
-            return $this->redirect('index.php?r=pendaftaran/list');
+            //return $this->redirect('index.php?r=pendaftaran/list');
+            return $this->render('form', ['dat' => $dat, 'msg' => 'Rekod telah disimpan']);
         } else {
             // validation ko
             // show err msg, show ori form

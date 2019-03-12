@@ -33,17 +33,15 @@ if (isset($salah)) {
     <b>DNA ANALYSIS</b>
     <div class="row">
         <div class="col-sm-1">Tarikh hantar</div>
-        <div class="col-sm-4"><input type="date" name="tkh_dnahantar" value="<?= $dat->tkh_dnahantar ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="date" name="tkh_dnahantar" value="<?= $dat->tkh_dnahantar ?>" class="form-control me"></div>
         <div class="col col-sm-1">Tarikh Keputusan</div>
-        <div class="col col-sm-4"><input type="date" name="tkh_dnakeputusan" value="<?= $dat->tkh_dnakeputusan ?>" class="form-control"></div>
+        <div class="col col-sm-4"><input type="date" name="tkh_dnakeputusan" value="<?= $dat->tkh_dnakeputusan ?>" class="form-control me"></div>
     </div>
     <div class="row">
         <div class="col-sm-1">Kod Keputusan</div>
         <div class="col-sm-4">
-        <?= Html::dropDownList('kod_dnakeputusan', $dat->kod_dnakeputusan, KodUjian::dd('DNA', 'Y'), ['class' => 'form-control']) ?>
+        <?= Html::dropDownList('kod_dnakeputusan', $dat->kod_dnakeputusan, KodUjian::dd('DNA', 'Y'), ['class' => 'form-control me']) ?>
         </div>
-        <div class="col-sm-1">Diagnosa Akhir</div>
-        <div class="col-sm-4"><input type="text" id="diag_akhir" value="" class="form-control" disabled=""></div>
     </div>
     <div class="row">
         <div class="col-sm-1"></div>
@@ -67,10 +65,13 @@ $(function() {
             var perlu = 'TIDAK';
             if (data.perlu_diag === 'Y') {
                 perlu = 'YA';
+                $(".me").prop('disabled', false);
+            } else {
+                $(".me").prop('disabled', true);
             }
                 
             $('#diag_molekular').val(perlu);
-            $('#diag_akhir').val(data.diag_akhir);
+            //$('#diag_akhir').val(data.diag_akhir);
         });
     }
 });

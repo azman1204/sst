@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use app\models\Rujukan;
 echo "<legend>Kaunseling</legend>";
-echo $this->render('/pendaftaran/menu', ['current' => 4]);
+echo $this->render('/pendaftaran/menu', ['current' => 5]);
 if (isset($salah)) {
     echo app\mylib\Util::alert($salah);
 }

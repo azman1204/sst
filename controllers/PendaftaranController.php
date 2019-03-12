@@ -35,15 +35,21 @@ class PendaftaranController extends \yii\web\Controller {
     // on klik pd tab pendaftaran
     function actionEdit2() {
         $id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
-        $arr = $this->data();
-        $arr['dat'] = Pendaftaran::findOne($id_pendaftaran);
+        $dat = Pendaftaran::findOne($id_pendaftaran);
+        $arr = $this->data($dat->id_klinik);
+        $arr['dat'] = $dat;
+        $arr['klinik'] = \app\models\Klinik::findOne($dat->id_klinik);
         return $this->render('form', $arr);
     }
 
     // shared data
-    private function data() {
+    private function data($id_klinik = 0) {
         $user = \Yii::$app->user->identity;
-        $sek = Sekolah::find()->where(['id_klinik' => $user->id_klinik])->all();
+        if ($id_klinik == 0) {
+            $sek = Sekolah::find()->where(['id_klinik' => $user->id_klinik])->all();
+        } else {
+            $sek = Sekolah::find()->where(['id_klinik' => $id_klinik])->all();
+        }
         $arr['sek'] = ArrayHelper::map($sek, 'id', 'nama');
         $etnik = KumpEtnik::find()->all();
         $arr['kump_etnik'] = ['0' => '--Sila Pilih--'] + ArrayHelper::map($etnik, 'id', 'nama');
@@ -96,7 +102,7 @@ class PendaftaranController extends \yii\web\Controller {
         if ($p->validate()) {
             // validation ok. then baru save data
             $p->save();
-            return $this->redirect('index.php?r=pendaftaran/list');
+            return $this->redirect('index.php?r=pendaftaran/list&list=y');
         } else {
             // validation ko
             // show err msg, show ori form
@@ -233,8 +239,9 @@ class PendaftaranController extends \yii\web\Controller {
         // select * from pendaftaran where id = 1
         \Yii::$app->session->set('id_pendaftaran', $id); // set session
         $data = Pendaftaran::findOne($id);
-        $arr = $this->data();
+        $arr = $this->data($data->id_klinik);
         $arr['dat'] = $data;
+        $arr['klinik'] = \app\models\Klinik::findOne($data->id_klinik);
         return $this->render('form', $arr);
     }
 

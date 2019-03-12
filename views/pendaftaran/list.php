@@ -11,11 +11,13 @@ use app\models\UjianPengesahan;
 use app\models\KodUjian;
 use app\models\Kaunseling;
 use yii\helpers\Html;
+$user = \Yii::$app->user->identity;
 ?>
 <legend>Senarai Pendaftaran</legend>
 
 <form method="post" action="index.php?r=pendaftaran/list">
 <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
+<?php if (! isset($_GET['list'])) : ?>
 <div class="card">
     <div class="card-header">Carian</div>
     <div class="card-body">
@@ -26,7 +28,6 @@ use yii\helpers\Html;
             <div class="col col-md-4"><input value="<?= $nama ?>" type="text" name="nama" class="form-control"></div>
         </div>
         <?php
-        $user = \Yii::$app->user->identity;
         if ($user->level === 'hq') {
             echo $this->render('cari_hq', ['pkd' =>$pkd, 'klinik'=>$klinik, 'sek'=>$sek]);
         } else if ($user->level === 'pkd') {
@@ -42,11 +43,25 @@ use yii\helpers\Html;
             <div class="col col-md-4"><input value="<?= $tkh_hingga ?>" type="date" name="tkh_hingga" class="form-control"></div>
         </div>
         <div class="row">
+            <div class="col col-md-1">Status Ujian Saringan</div>
+            <div class="col col-md-4">
+                <select class="form-control">
+                    <option value="1">SELESAI</option>
+                    <option value="2">TIDAK SELESAI</option>
+                </select>
+            </div>
+            <div class="col-md-1">Diagnosis Sementara</div>
+            <div class="col-md-4">
+                <?= Html::dropDownList('id_diag_sementara', '', Rujukan::dd('diag_temp'), ['class' => 'form-control']) ?>
+            </div>
+        </div>
+        <div class="row">
             <div class="col col-md-1"></div>
             <div class="col col-md-4"><input type="submit" value="Cari" class="btn btn-primary"></div>
         </div>
     </div>
 </div>
+<?php endif; ?>
 </form>
 <br>
 <?php if ($user-> level === 'klinik') { ?>
@@ -173,12 +188,12 @@ use yii\helpers\Html;
             ?>
             <tr>
                 <td><?= $bil++ ?></td>
-                <?php if ($user-> level === 'klinik') { ?>
                 <td>
                     <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="fa fa-pencil"></a>
+                    <?php if ($user-> level === 'klinik') { ?>
                     <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash"></a>
+                    <?php } ?>
                 </td>
-                <?php } ?>
                 <td><?= $data->nama ?></td>
                 <td><?= $data->nokp ?></td>
                 <td><?= $data->kebenaran === 'Y' ? 'YA' : 'TIDAK' ?></td>

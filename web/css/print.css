@@ -1,0 +1,34 @@
+#my-table {
+    border: 1px solid #999;
+    width:100%;
+    font-size:11px;
+}
+
+#my-table td {
+    border: 1px solid #ddd;
+}
+
+.my-tr {
+    text-align:center;
+    background-color: #eee;
+    font-weight: 700;
+    color: #000;
+}
+
+.r1 {
+    background-color: white;
+}
+
+.r2 {
+    background-color: #ffffcc;
+}
+
+.total {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.tiada-rekod {
+    font-size: 14px;
+    color:red;
+}

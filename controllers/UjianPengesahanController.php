@@ -48,13 +48,21 @@ class UjianPengesahanController extends \yii\web\Controller {
         $ujian->tkh_hbhantar = $_POST['tkh_hbhantar'];
         $ujian->tkh_hbkeputusan = $_POST['tkh_hbkeputusan'];
         $ujian->kod_hbkeputusan = $_POST['kod_hbkeputusan'];
-        $ujian->tkh_dnahantar = $_POST['tkh_dnahantar'];
-        $ujian->tkh_dnakeputusan = $_POST['tkh_dnakeputusan'];
-        $ujian->kod_dnakeputusan = $_POST['kod_dnakeputusan'];
+        
+        if($ujian->kod_hbkeputusan == 2) {
+            // n
+            $ujian->tkh_dnahantar = null;
+            $ujian->tkh_dnakeputusan = null;
+            $ujian->kod_dnakeputusan = null;
+        } else {
+            $ujian->tkh_dnahantar = $_POST['tkh_dnahantar'];
+            $ujian->tkh_dnakeputusan = $_POST['tkh_dnakeputusan'];
+            $ujian->kod_dnakeputusan = $_POST['kod_dnakeputusan'];
+        }
         
         if ($ujian->validate()) {
             $ujian->save();
-            $this->redirect('index.php?r=pendaftaran/list');
+            $this->redirect('index.php?r=pendaftaran/list&list=n');
         } else {
             $arr['salah'] = $ujian->getErrors();
             $arr['dat'] = $ujian;
