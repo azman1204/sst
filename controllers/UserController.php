@@ -12,7 +12,7 @@ class UserController extends \yii\web\Controller {
         $pwd = $_POST['pwd_old'];
         $pwd_new = $_POST['pwd_new'];
         $pwd_confirm = $_POST['pwd_confirm'];
-        $user = User::find()->where(['user_id' => \Yii::$app->user->identity->user_id, 'pwd' => $pwd])->one();
+        $user = User::find()->where(['user_id' => \Yii::$app->user->identity->user_id, 'pwd' => sha1($pwd)])->one();
         if (! $user) {
             $err[] = ['Katalaluan Asal Salah'];
         }
@@ -20,14 +20,22 @@ class UserController extends \yii\web\Controller {
         if ($pwd_new !== $pwd_confirm) {
             $err[] = ['Katalaluan Baru dan Pengesahan Katalaluan Tidak Sama'];
         }
-        
-        if (strlen($pwd_new) < 5) {
-            $err[] = ['Katalaluan haruslah sekurang-kurangnya 5 karakter'];
+
+        $ok = false;
+        if (preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/',$pwd_new)) {
+            $ok = true;
         }
+        
+        if (! $ok) {
+            $err[] = ['Katalaluan haruslah mempunyai 8 karakter yang terdiri dari kombinasi huruf, nombor dan karakter spesial'];
+        }
+       
         
         if (count($err) == 0) {
             $msg[] = ['Katalaluan telah berjaya dikemaskini'];
             $data['msg'] = $msg;
+            $user->pwd = sha1($pwd_new);
+            $user->save();
         } else {
             $data['err'] = $err;
         }
@@ -53,6 +61,7 @@ class UserController extends \yii\web\Controller {
     
     function actionEdit($id) {
         $user = User::find()->where(['id' => $id])->one();
+        $user->pwd = 'xxxxxxxx';
         return $this->render('form', ['user' => $user]);
     }
     
@@ -68,17 +77,29 @@ class UserController extends \yii\web\Controller {
         
         $user->name = $_POST['name'];
         $user->post = $_POST['post'];
-        $user->pwd = $_POST['pwd'];
+        
+        if($_POST['pwd'] !== 'xxxxxxxx' && $_POST['pwd'] !== '') {
+            $user->pwd = sha1($_POST['pwd']);
+        }
+        
         $user->user_id = $_POST['user_id'];
         $level = $_POST['level'];
         $user->level = $level;
-        if ($level == 'klinik') {
+
+        if ($level == 'KLINIK') {
             $user->id_klinik = $_POST['id_klinik'];
-        } else if ($level == 'pkd') {
+        } else if ($level == 'PKD') {
             $user->id_pkd = $_POST['id_pkd'];
         }
-        $user->save();
-        return $this->redirect('index.php?r=user/list');
+        
+        if($user->save()) {
+            return $this->redirect('index.php?r=user/list');
+        } else {
+            $user->pwd = $_POST['pwd'];
+            $err = $user->errors; // return array of errors
+            return $this->render('form', ['user' => $user, 'err' => $err]);
+        }
+        
     }
     
     function actionKlinik($level) {

@@ -70,7 +70,8 @@ $(function() {
     <div class="form-row">
         <div class="col col-md-1">
             Tahun
-            <?= \app\mylib\Util::year_list('tahun', $tahun) ?>
+            <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
+            <?= yii\helpers\Html::dropDownList('tahun',$tahun, app\models\Rujukan::dd('tahun'), ['class'=>'form-control']) ?>
         </div>
         <?php if ($usr_level == 'hq') : ?>
             <div class="col">
@@ -78,7 +79,7 @@ $(function() {
                 <?= \app\mylib\Util::pkd_list('pkd', $pkd) ?>
             </div>
         <?php endif; ?>
-        <?php if ($usr_level == 'pkd' || $usr_level == 'hq') : ?>
+        <?php if ($usr_level == 'PKD' || $usr_level == 'HQ') : ?>
             <div class="col">
                 Klinik
                 <span id='pks-td'><?= $pks_list ?></span>
@@ -102,6 +103,6 @@ if (! isset($_POST['cari'])) {
 <br>
 <a href="index.php?r=report/cetak" target="_window" class="btn btn-primary btn-sm">Cetak</a>
 <a href="index.php?r=report/excel" class="btn btn-primary btn-sm">Tukar ke Excel</a>
-<a href="index.php?r=report/pdf" class="btn btn-primary btn-sm">Tukar ke PDF</a>
+<a href="index.php?r=report/pdf" target="_window" class="btn btn-primary btn-sm">Tukar ke PDF</a>
 <?php
 echo $result;

@@ -1,26 +1,22 @@
 <?php
-
 namespace app\controllers;
-
 use kartik\mpdf\Pdf;
 
 class ReportController extends \yii\web\Controller {
-
     function actionReten() {
         $request = \Yii::$app->request;
         $arr['sekolah'] = $request->post('sekolah');
         $arr['pkd'] = $request->post('pkd');
         $arr['tahun'] = $request->post('tahun');
         $arr['pks'] = $request->post('pks');
-        \Yii::$app->session['arr'] = $arr;
-
         $user = \Yii::$app->user->identity;
         $usr_level = $user->level;
 
-        if ($usr_level == 'klinik') {
+        if ($usr_level == 'KLINIK') {
             $id_klinik = $user->id_klinik;
+            $arr['pks'] = $id_klinik;
             $sekolah_list = \app\mylib\Util::sekolah_klinik('sekolah', $id_klinik, $arr['sekolah']);
-        } else if ($usr_level == 'pkd') {
+        } else if ($usr_level == 'PKD') {
             $id_pkd = $user->id_pkd;
             $pks_list = \app\mylib\Util::pks_list('pks', $id_pkd, $arr['pks']);
             $sekolah_list = \app\mylib\Util::sekolah_pkd('sekolah', $id_pkd, $arr['pks']);
@@ -31,6 +27,10 @@ class ReportController extends \yii\web\Controller {
             $pks_list = \app\mylib\Util::pks_list('pks', $arr['pkd'], $arr['pks']);
             $arr['pks_list'] = $pks_list;
         }
+
+        \Yii::$app->session['arr'] = $arr; // set into session
+        //\var_dump($arr);exit;
+
         $arr['sekolah_list'] = $sekolah_list;
         $arr['usr_level'] = $usr_level;
         $result = $this->renderPartial('result', $arr);
@@ -46,24 +46,46 @@ class ReportController extends \yii\web\Controller {
     }
 
     function actionCetak() {
-        $arr = \Yii::$app->session->get('arr');
-        $pkd = \app\models\Rujukan::find()->where(['kod' => $arr['pkd'], 'kat' => 'pkd'])->one();
-        $klinik = \app\models\Klinik::find($arr['pks'])->one();
-        $sekolah = \app\models\Sekolah::find($arr['sekolah'])->one();
-        //var_dump($klinik);exit;
+        $arr = $this->getData();
         $util = \app\models\Util::find()->where(['user_id' => \Yii::$app->user->identity->user_id])->one();
-        return $this->renderPartial('cetak', [
-            'result' => $util->report, 'pkd' => $pkd, 'klinik'=>$klinik, 'sekolah'=>$sekolah, 'tahun' => $arr['tahun']]);
+        $arr['result'] = $util->report;
+        return $this->renderPartial('cetak', $arr);
+    }
+
+    private function getData() {
+        $arr = \Yii::$app->session->get('arr');
+        if(isset($arr['pkd']) && $arr['pkd'] !== '0'){
+            $pkd = \app\models\Rujukan::find()->where(['kod' => $arr['pkd'], 'kat' => 'pkd'])->one();
+        } else {
+            $pkd = new \app\models\Rujukan();
+        }
+
+        if(isset($arr['pks']) && $arr['pks'] !== '0'){
+            $klinik = \app\models\Klinik::find()->where(['id' => $arr['pks']])->one();
+        } else {
+            $klinik = new \app\models\Klinik();
+        }
+
+        if(isset($arr['sekolah']) && $arr['sekolah'] !== '0'){
+            $sekolah = \app\models\Sekolah::find()->where(['id' => $arr['sekolah']])->one();
+        } else {
+            $sekolah = new \app\models\Sekolah();
+        }
+        //\var_dump($arr);exit;
+        return ['pkd' => $pkd, 'klinik' => $klinik, 'sekolah' => $sekolah, 'tahun' => $arr['tahun']];
     }
 
     function actionExcel() {
+        $arr = $this->getData();
         header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
         header("Content-Disposition: attachment; filename=reten.xls");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: private", false);
         $util = \app\models\Util::find()->where(['user_id' => \Yii::$app->user->identity->user_id])->one();
-        return $this->renderPartial('cetak', ['result' => $util->report]);
+        $arr['result'] = $util->report;
+        //\var_dump($arr);
+        return $this->renderPartial('cetak', $arr);
     }
 
     function actionPdf() {

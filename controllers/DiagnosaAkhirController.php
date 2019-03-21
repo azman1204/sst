@@ -7,17 +7,24 @@ use app\models\KodUjian;
 class DiagnosaAkhirController extends \yii\web\Controller {
     public function actionForm() {
         $id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');
-        $diag1 = UjianPengesahan::find()->where(['id_pendaftaran' => $id_pendaftaran])->one();
         $diag2 = UjianSaringan::find()->where(['id_pendaftaran' => $id_pendaftaran])->one();
-        if (! $diag1) {
-            $diag1 = new UjianPengesahan();
-        }
-        $dat = KodUjian::findOne($diag1->kod_hbkeputusan);
         $catatan = $diag2->catatan2;
-        if ($dat) {
-            $diagnosa = $dat->diag_akhir;
+        if ($diag2->id_diag_sementara == 1) {
+            // normal - semasa ujian saringan
+            $diagnosa = 'NORMAL';
         } else {
-            $diagnosa = '';
+            $diag1 = UjianPengesahan::find()->where(['id_pendaftaran' => $id_pendaftaran])->one();
+        
+            if (! $diag1) {
+                $diag1 = new UjianPengesahan();
+            }
+            $dat = KodUjian::findOne($diag1->kod_hbkeputusan);
+            
+            if ($dat) {
+                $diagnosa = $dat->diag_akhir;
+            } else {
+                $diagnosa = '';
+            }
         }
         return $this->render('form', ['diagnosa' => $diagnosa, 'catatan' => $catatan]);
     }

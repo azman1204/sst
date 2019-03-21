@@ -22,21 +22,21 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col-sm-1">HB</div>
-        <div class="col-sm-4"><input type="text" name="hb" value="<?= $dat->hb ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="hb" maxlength='4' value="<?= $dat->hb ?>" class="form-control"></div>
         <div class="col-sm-1">MCH</div>
-        <div class="col-sm-4"><input type="text" name="mch" value="<?= $dat->mch ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="mch" maxlength='4' value="<?= $dat->mch ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-sm-1">MCV</div>
-        <div class="col-sm-4"><input type="text" name="mcv" value="<?= $dat->mcv ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="mcv" maxlength='4' value="<?= $dat->mcv ?>" class="form-control"></div>
         <div class="col-sm-1">MCHC</div>
-        <div class="col-sm-4"><input type="text" name="mchc" value="<?= $dat->mchc ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="mchc" maxlength='4' value="<?= $dat->mchc ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-sm-1">RDW</div>
-        <div class="col-sm-4"><input type="text" name="rdw" value="<?= $dat->rdw ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="rdw" maxlength='4' value="<?= $dat->rdw ?>" class="form-control"></div>
         <div class="col-sm-1">RBC</div>
-        <div class="col-sm-4"><input type="text" name="rbc" value="<?= $dat->rbc ?>" class="form-control"></div>
+        <div class="col-sm-4"><input type="text" name="rbc" maxlength='5' value="<?= $dat->rbc ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-sm-1">Diagnosis Sementara</div>

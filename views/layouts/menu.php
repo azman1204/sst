@@ -8,7 +8,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php?r=home">Home <span class="sr-only">(current)</span></a>
             </li>
-            <?php if(Yii::$app->user->identity->level == 'klinik') : ?>
+            <?php if(Yii::$app->user->identity->level == 'KLINIK') : ?>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?r=pendaftaran/form">Pendaftaran</a>
             </li>

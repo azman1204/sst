@@ -1,5 +1,9 @@
 <legend>Maklumat Pengguna</legend>
-
+<?php
+if (isset($err)) {
+    echo app\mylib\Util::alert($err);
+}
+?>
 <form method="post" action="index.php?r=user/save">
     <input type="hidden" name="id" value="<?= $user->id ?>" class="form-control">
     <div class="row">
@@ -21,7 +25,7 @@
                 <option value="ADM" <?= $user->level == 'ADM' ? 'selected' : '' ?>>Sistem Admin</option>
                 <option value="HQ" <?= $user->level == 'HQ' ? 'selected' : '' ?>>HQ</option>
                 <option value="PKD" <?= $user->level == 'PKD' ? 'selected' : '' ?>>PKD</option>
-                <option value="KLINIK" <?= $user->level == 'klinik' ? 'selected' : '' ?>>Klinik</option>
+                <option value="KLINIK" <?= $user->level == 'KLINIK' ? 'selected' : '' ?>>Klinik</option>
             </select>
         </div>
         <div class="col-sm-2 my-klinik">Klinik/PKD</div>
@@ -44,9 +48,9 @@
 
         function getKlinik() {
             var level = $("#level").val();
-            if (level === 'klinik' || level === 'PKD') {
+            if (level === 'KLINIK' || level === 'PKD') {
                 $('.my-klinik').show();
-                if (level === 'klinik') {
+                if (level === 'KLINIK') {
                     $('#my-div').load('index.php?r=user/klinik&level='+level);
                 } else {
                     $('#my-div').load('index.php?r=user/pkd&level='+level);

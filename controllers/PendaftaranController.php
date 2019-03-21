@@ -77,6 +77,7 @@ class PendaftaranController extends \yii\web\Controller {
         $p->alamat = $_POST['alamat'];
         $p->kump_etnik = $_POST['kump_etnik'];
         $p->umur = $_POST['umur'];
+        $p->tahun_reten = $_POST['tahun_reten'];
         
         if (isset($_POST['kes_indeks'])) {
             $p->kes_indeks = 'Y';
@@ -144,6 +145,8 @@ class PendaftaranController extends \yii\web\Controller {
         $arr['sek'] = '';
         $arr['tkh_dari'] = '';
         $arr['tkh_hingga'] = '';
+        $arr['id_diag_sementara'] = '0';
+        $arr['status_ujian'] = 0;
         
         $user = \Yii::$app->user->identity;
         $level = $user->level;
@@ -214,14 +217,33 @@ class PendaftaranController extends \yii\web\Controller {
             $q->andWhere(['>=', 'created_dt', $tkh_dari . ' 00:00:00']);
             $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
         }
+
+        // status ujian
+        $status = '0';
+        if ($_POST['status_ujian'] !== '0') {
+            $status = $_POST['status_ujian'];
+            $q->leftJoin('kaunseling', 'pendaftaran.id = kaunseling.id_pendaftaran');
+            $q->andWhere(['=', 'kaunseling.telah_kaunseling', $status]);
+        }
+
+        // diagnosis sementara
+        $id = '0';
+        if ($_POST['id_diag_sementara'] !== '0') {
+            $id = $_POST['id_diag_sementara'];
+            $q->leftJoin('ujian_saringan', 'pendaftaran.id = ujian_saringan.id_pendaftaran');
+            $q->andWhere(['=', 'ujian_saringan.id_diag_sementara', $id]);
+        }
+
+        //echo $q->createCommand()->getRawSql();
         
         $pagination = new Pagination(['totalCount' => $q->count()]);
         $pagination->pageSize = 5;
-        $data = $q->offset($pagination->offset)
-                ->limit($pagination->limit)->all();
+        $data = $q->offset($pagination->offset)->limit($pagination->limit)->all();
         $arr['dat'] = $data;
         $arr['nokp'] = $nokp;
         $arr['nama'] = $nama;
+        $arr['status_ujian'] = $status;
+        $arr['id_diag_sementara'] = $id;
         $arr['pagination'] = $pagination;
         return $this->render('list', $arr);
     }

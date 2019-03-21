@@ -11,7 +11,7 @@ class LoginController extends \yii\web\Controller {
     // authenticated submitted login form
     function actionAuth() {
         $user = User::find()
-                ->where(['user_id' => $_POST['user_id'], 'pwd' => $_POST['pwd']])
+                ->where(['user_id' => $_POST['user_id'], 'pwd' => sha1($_POST['pwd'])])
                 ->one();
         if ($user) {
             // user exist

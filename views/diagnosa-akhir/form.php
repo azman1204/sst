@@ -19,11 +19,11 @@ if (isset($msg)) {
     </div>
     <div class="row">
         <div class="col-sm-2">Catatan</div>
-        <div class="col-sm-4"><textarea class="form-control" name="catatan"><?= $catatan ?></textarea></div>
+        <div class="col-sm-4"><textarea class="form-control" id='catatan' name="catatan"><?= $catatan ?></textarea></div>
     </div>
     <div class="row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-4"><input type="submit" value="Simpan" class="btn btn-primary"></div>
+        <div class="col-sm-4"><input type="submit" id='submit' value="Simpan" class="btn btn-primary"></div>
     </div>
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
 </form>

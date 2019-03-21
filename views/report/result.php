@@ -108,11 +108,11 @@
         $where['tahun_reten'] = $tahun;
     }
 
-    if($pks !== '0') {
+    if($pks !== null && $pks !== '0') {
         $where['id_klinik'] = $pks;
     }
     
-    if($pkd !== '0') {
+    if($pkd !== null && $pkd !== '0') {
         $where['k.id_pkd'] = $pkd;
     }
     

@@ -8,19 +8,27 @@
         <script src="jquery-3.2.1.min.js"></script>
     </head>
     <body>
+    <div id='report-wrapper'>
     <center><b>RETEN SARINGAN THALASSAEMIA SEKOLAH</b></center>
     <br>
     <div class="row">
-        <div class="col-md-8"><b>Pejabat Kesihatan / Klinik Kesihatan / Sekolah :</b> <?= $pkd->keterangan ?> / <?= $klinik->nama ?> /  <?= $sekolah->nama ?></div>
-        <div class="col-md-4"><b>Tahun :</b> <?= $tahun ?></div>
+        <div class="col-md-8"><b>Pejabat Kesihatan / Klinik Kesihatan / Sekolah :</b> <?=$pkd->keterangan?> / <?=$klinik->nama?> /  <?=$sekolah->nama?></div>
+        <div class="col-md-4"><b>Tahun :</b> <?=$tahun?></div>
     </div>
-    <?= $result ?>
+    <?=$result?>
+    </div>
 </body>
 <style>
+#report-wrapper {
+    background-color:white;
+    margin:20px;
+    border: 2px solid #000;
+}
     #my-table {
-        border: 1px solid #999;
+
         width:100%;
         font-size:11px;
+
     }
 
     #my-table td {

@@ -45,14 +45,15 @@ $user = \Yii::$app->user->identity;
         <div class="row">
             <div class="col col-md-2">Status Ujian Saringan</div>
             <div class="col col-md-4">
-                <select class="form-control">
-                    <option value="1">SELESAI</option>
-                    <option value="2">TIDAK SELESAI</option>
+                <select class="form-control" name='status_ujian'>
+                    <option value="0">--Sila Pilih--</option>
+                    <option value="Y" <?= $status_ujian == 'Y' ? 'selected': '' ?>>SELESAI</option>
+                    <option value="T" <?= $status_ujian == 'T' ? 'selected': '' ?>>TIDAK SELESAI</option>
                 </select>
             </div>
             <div class="col-md-2">Diagnosis Sementara</div>
             <div class="col-md-4">
-                <?= Html::dropDownList('id_diag_sementara', '', Rujukan::dd('diag_temp'), ['class' => 'form-control']) ?>
+                <?= Html::dropDownList('id_diag_sementara', $id_diag_sementara, Rujukan::dd('diag_temp', 'Y'), ['class' => 'form-control']) ?>
             </div>
         </div>
         <div class="row">

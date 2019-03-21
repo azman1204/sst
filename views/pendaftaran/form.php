@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use app\models\Rujukan;
+
 echo "<legend>Pendaftaran Saringan</legend>";
 
 if (isset($new)) {
@@ -74,6 +76,10 @@ if (isset($salah)) {
         <div class="col col-sm-4"><input type="text" name="nama_indeks" value="<?= $dat->nama_indeks ?>" class="form-control"></div>
         <div class="col col-sm-2">No KP</div>
         <div class="col col-sm-4"><input type="text" name="nokp_indeks" value="<?= $dat->nokp_indeks ?>" class="form-control"></div>
+    </div>
+    <div class="row" id="kes_indeks">
+        <div class="col col-sm-2">Tahun Reten</div>
+        <div class="col col-sm-4"><?= Html::dropDownList('tahun_reten', $dat->tahun_reten, Rujukan::dd('tahun'), ['class' => 'form-control']) ?></div>
     </div>
     
     <div class="row">
