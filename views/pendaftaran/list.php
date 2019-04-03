@@ -147,6 +147,9 @@ $user = \Yii::$app->user->identity;
             $ke = KumpEtnik::findOne($data->kump_etnik);
             $sekolah = Sekolah::findOne($data->id_sekolah);
             $pe = PecahanEtnik::findOne($data->pecahan_etnik);
+            if (! $pe) {
+                $pe = new PecahanEtnik();
+            }
             $saringan = UjianSaringan::find()->where(['id_pendaftaran' => $data->id])->one();
             if (!$saringan) {
                 // maklumat ujian saringan belum disimpan

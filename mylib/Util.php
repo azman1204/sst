@@ -66,7 +66,7 @@ class Util {
         $str = "<select name='$name' class='form-control'>";
         $str .= "<option value='0'>--Sila Pilih--</option>";
         foreach ($rows as $sekolah) {
-            $s = $sekolah['id'] == $id_sekolah ? 'selected' : '';
+            $s = $sekolah['id'] === $id_sekolah ? 'selected' : '';
             $str .= "<option value='{$sekolah['id']}' $s>{$sekolah['nama']}</option>";
         }
         $str .= "</select>";
@@ -90,7 +90,7 @@ class Util {
         $str = "<select name='$name' class='form-control'>";
         $str .= "<option value='0'>--Sila Pilih--</option>";
         foreach ($rows as $sekolah) {
-            $s = $sekolah['id'] == $id_sekolah ? 'selected' : '';
+            $s = $sekolah['id'] === $id_sekolah ? 'selected' : '';
             $str .= "<option value='{$sekolah['id']}' $s>{$sekolah['nama']}</option>";
         }
         $str .= "</select>";

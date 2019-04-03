@@ -11,6 +11,7 @@ class ReportController extends \yii\web\Controller {
         $arr['pks'] = $request->post('pks');
         $user = \Yii::$app->user->identity;
         $usr_level = $user->level;
+        $arr['user'] = $user;
 
         if ($usr_level == 'KLINIK') {
             $id_klinik = $user->id_klinik;
@@ -19,7 +20,7 @@ class ReportController extends \yii\web\Controller {
         } else if ($usr_level == 'PKD') {
             $id_pkd = $user->id_pkd;
             $pks_list = \app\mylib\Util::pks_list('pks', $id_pkd, $arr['pks']);
-            $sekolah_list = \app\mylib\Util::sekolah_pkd('sekolah', $id_pkd, $arr['pks']);
+            $sekolah_list = \app\mylib\Util::sekolah_pkd('sekolah', $id_pkd, $arr['sekolah']);
             $arr['pks_list'] = $pks_list;
         } else {
             // hq
@@ -29,8 +30,6 @@ class ReportController extends \yii\web\Controller {
         }
 
         \Yii::$app->session['arr'] = $arr; // set into session
-        //\var_dump($arr);exit;
-
         $arr['sekolah_list'] = $sekolah_list;
         $arr['usr_level'] = $usr_level;
         $result = $this->renderPartial('result', $arr);

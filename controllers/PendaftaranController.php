@@ -152,12 +152,12 @@ class PendaftaranController extends \yii\web\Controller {
         $level = $user->level;
         
         $q = Pendaftaran::find()->where([]);
-        if ($level === 'klinik') {
+        if ($level === 'KLINIK') {
             $q = $q->andWhere(['id_klinik' => $user->id_klinik]);
-        } else if ($level === 'pkd') {
+        } else if ($level === 'PKD') {
             $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
             $q->andWhere(['id_pkd' => $user->id_pkd]);
-        } else if ($level == 'hq') {
+        } else if ($level == 'HQ') {
             $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
         }
         

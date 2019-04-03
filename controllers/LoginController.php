@@ -5,6 +5,7 @@ use app\models\User;
 class LoginController extends \yii\web\Controller {
     // show login form
     function actionIndex() {
+		//echo sha1('1234');exit;
         return $this->renderPartial('form');
     }
     

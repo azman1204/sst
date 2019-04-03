@@ -100,6 +100,11 @@
     }
 
     $where = [];
+    if ($user->level === 'PKD') {
+        $id_pkd = $user->id_pkd;
+        $where['k.id_pkd'] = $id_pkd;
+    }
+
     if($sekolah !== '0') {
         $where['id_sekolah'] = $sekolah;
     }

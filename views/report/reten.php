@@ -73,7 +73,7 @@ $(function() {
             <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
             <?= yii\helpers\Html::dropDownList('tahun',$tahun, app\models\Rujukan::dd('tahun'), ['class'=>'form-control']) ?>
         </div>
-        <?php if ($usr_level == 'hq') : ?>
+        <?php if ($usr_level == 'HQ') : ?>
             <div class="col">
                 Pejabat Kesihatan Daerah
                 <?= \app\mylib\Util::pkd_list('pkd', $pkd) ?>
