@@ -1,6 +1,6 @@
 <table id='my-table' class="mt-1" border="1">
     <tr class='my-tr'>
-        <td rowspan='4'>Klinik Kesihatan <br> / Daerah<br>  / Negeri <br></td>
+        <!--<td rowspan='4'>Klinik Kesihatan <br> / Daerah<br>  / Negeri <br></td>-->
         <td rowspan='4'>Kumpulan Etnik</td>
         <td rowspan='4'>Jantina</td>
         <td rowspan='2' colspan='2'>Enrolment</td>
@@ -165,7 +165,16 @@
     //var_dump($rows_diag);
 
     $i = 0;
-    $arr = ['Melayu' => 1,'Cina' => 2,'India' => 3,'Orang Asli' => 4,'Bumiputera Sabah' => 5];
+    $arr = [
+        'Melayu' => 1,
+        'Cina' => 2,
+        'India' => 3,
+        'Orang Asli' => 4,
+        'Bumiputera Sabah' => 5,
+        'Bumiputera Sarawak' => 6,
+        'Siam' => 7,
+        'Pertugis' => 8
+        ];
     //$arr = [];
     $tot_enrolment = tot_enrolment($rows_enrolment);
     $tot_kebenaran_Y = tot_kebenaran($rows_kebenaran, 'Y');
@@ -275,7 +284,7 @@
     </tr> -->
     <!-- LELAKI -->
     <tr>
-        <td rowspan='3'></td>
+        <!--<td rowspan='3'></td>-->
         <td rowspan='3'><?= $nama_etnik ?></td>
         <td>Lelaki</td>
         <td align='center'><?= $enrolment_L ?></td>
@@ -350,7 +359,7 @@
     <?php } // end if  ?>
     <!-- TOTAL -->
     <tr class='total'>
-        <td colspan='3' align='right'>JUMLAH</td>
+        <td colspan='2' align='right'>JUMLAH</td>
         <td align='center'><?= $tot_enrolment ?></td>
         <td align='center'>100%</td>
         <td align='center'><?= $tot_kebenaran_Y ?></td>
