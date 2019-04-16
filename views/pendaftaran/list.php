@@ -47,8 +47,8 @@ $user = \Yii::$app->user->identity;
             <div class="col col-md-4">
                 <select class="form-control" name='status_ujian'>
                     <option value="0">--Sila Pilih--</option>
-                    <option value="Y" <?= $status_ujian == 'Y' ? 'selected': '' ?>>SELESAI</option>
-                    <option value="T" <?= $status_ujian == 'T' ? 'selected': '' ?>>TIDAK SELESAI</option>
+                    <option value="Y" <?= $status_ujian === 'Y' ? 'selected': '' ?>>SELESAI</option>
+                    <option value="T" <?= $status_ujian === 'T' ? 'selected': '' ?>>TIDAK SELESAI</option>
                 </select>
             </div>
             <div class="col-md-2">Diagnosis Sementara</div>
