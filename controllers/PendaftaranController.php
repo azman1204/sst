@@ -98,7 +98,11 @@ class PendaftaranController extends \yii\web\Controller {
 
         $p->tkh_lahir  = $_POST['tkh_lahir'];
         $p->id_sekolah = $_POST['id_sekolah'];
-        $p->id_klinik  = \Yii::$app->user->identity->id_klinik; // patut baca dari session user yg login
+        
+        if (\Yii::$app->user->identity->id_klinik === 'KLINIK') {
+            $p->id_klinik  = \Yii::$app->user->identity->id_klinik; // patut baca dari session user yg login
+        }
+        
         // validation
         if ($p->validate()) {
             // validation ok. then baru save data
