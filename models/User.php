@@ -25,6 +25,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    // see Yii::$app->user->identity
     public static function findIdentity($id)
     {
         return self::find()->where(['user_id' => $id])->one();

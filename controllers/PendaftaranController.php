@@ -66,9 +66,12 @@ class PendaftaranController extends \yii\web\Controller {
             // insert / new data
             $p = new Pendaftaran();
             $arr['new'] = 'Y';
+            $p->created_by = \Yii::$app->user->identity->id;
         } else {
             // update
             $p = Pendaftaran::findOne($id); // return a record obj
+            $p->updated_by = \Yii::$app->user->identity->id;
+            $p->updated_dt = date('Y-m-d H:i:s');
         }
         $p->nama = $_POST['nama'];
         $p->nokp = $_POST['nokp'];
@@ -99,7 +102,7 @@ class PendaftaranController extends \yii\web\Controller {
         $p->tkh_lahir  = $_POST['tkh_lahir'];
         $p->id_sekolah = $_POST['id_sekolah'];
         
-        if (\Yii::$app->user->identity->id_klinik === 'KLINIK') {
+        if (\Yii::$app->user->identity->level === 'KLINIK') {
             $p->id_klinik  = \Yii::$app->user->identity->id_klinik; // patut baca dari session user yg login
         }
         
@@ -107,6 +110,12 @@ class PendaftaranController extends \yii\web\Controller {
         if ($p->validate()) {
             // validation ok. then baru save data
             $p->save();
+
+            $k = new \app\models\Kaunseling();
+            $k->id_pendaftaran = $p->id;
+            $k->telah_kaunseling = 'T';
+            $k->save();
+
             return $this->redirect('index.php?r=pendaftaran/list&list=y');
         } else {
             // validation ko
@@ -238,7 +247,7 @@ class PendaftaranController extends \yii\web\Controller {
             $q->andWhere(['=', 'ujian_saringan.id_diag_sementara', $id]);
         }
 
-        //echo $q->createCommand()->getRawSql();
+        echo $q->createCommand()->getRawSql();
         
         $pagination = new Pagination(['totalCount' => $q->count()]);
         $pagination->pageSize = 5;
@@ -256,6 +265,9 @@ class PendaftaranController extends \yii\web\Controller {
         // delete from pendaftaran where id = 1
         Pendaftaran::deleteAll(['id' => $id]);
         // redirect ke list
+        \app\models\Kaunseling::deleteAll(['id_pendaftaran' => $id]);
+        \app\models\UjianPengesahan::deleteAll(['id_pendaftaran' => $id]);
+        \app\models\UjianSaringan::deleteAll(['id_pendaftaran' => $id]);
         return $this->redirect('index.php?r=pendaftaran/list');
     }
 

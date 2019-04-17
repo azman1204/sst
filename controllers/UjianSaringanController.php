@@ -38,9 +38,12 @@ class UjianSaringanController extends \yii\web\Controller {
         if (empty($id)) {
             // insert / new data
             $dat = new \app\models\UjianSaringan();
+            $dat->created_by = \Yii::$app->user->identity->id;
         } else {
             // update
             $dat = \app\models\UjianSaringan::findOne($id); // return a record obj
+            $dat->updated_by = \Yii::$app->user->identity->id;
+            $dat->updated_dt = date('Y-m-d H:i:s');
         }
         
         $dat->id_pendaftaran = \Yii::$app->session->get('id_pendaftaran');

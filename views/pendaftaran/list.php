@@ -194,8 +194,8 @@ $user = \Yii::$app->user->identity;
                 <td><?= $bil++ ?></td>
                 <td>
                     <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="fa fa-pencil"></a>
-                    <?php if ($user-> level === 'klinik') { ?>
-                    <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash"></a>
+                    <?php if ($user-> level === 'KLINIK') { ?>
+                    <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash delete"></a>
                     <?php } ?>
                 </td>
                 <td><?= $data->nama ?></td>
@@ -269,3 +269,11 @@ echo LinkPager::widget([
     }
     
 </style>
+
+<script>
+$(function() {
+    $('.delete').click(function() {
+        return confirm('Anda Pasti Untuk Hapus Data');
+    });
+});
+</script>
