@@ -173,90 +173,101 @@ class PendaftaranController extends \yii\web\Controller {
         } else if ($level == 'HQ') {
             $q->leftJoin('klinik', "pendaftaran.id_klinik = klinik.id");
         }
-        
-        // ke klik directly dari menu ke list
-        if (! isset($_POST['nokp'])) {
-            $q->andWhere(['like', 'created_dt', date('Y-m-d')]);
-            $pagination = new Pagination(['totalCount' => $q->count()]);
-            $pagination->pageSize = 5;
-            $data = $q->offset($pagination->offset)
-                ->limit($pagination->limit)->all();
-            $arr['dat'] = $data;
-            $arr['pagination'] = $pagination;
-            return $this->render('list', $arr);
-        }
-        
-        $nokp = $_POST['nokp'];
-        if (! empty($nokp)) {
-            $q->andWhere(['=', 'nokp', $nokp]);
-        }
-        
-        $nama = $_POST['nama'];
-        if (! empty($nama)) {
-            $q->andWhere(['like', 'pendaftaran.nama', $nama]);
-        }
-        
-        if ($level === 'pkd' || $level === 'hq') {
-            $klinik = $_POST['klinik'];
-            $arr['klinik'] = $klinik;
-            if ($klinik !== '0') {
-                $q->andWhere(['=', 'id_klinik', $klinik]);
+
+        // on submit carian
+        if (isset($_POST['nokp'])) {
+            $nokp = $_POST['nokp'];
+            if (! empty($nokp)) {
+                $q->andWhere(['=', 'nokp', $nokp]);
+            }
+            
+            $nama = $_POST['nama'];
+            if (! empty($nama)) {
+                $q->andWhere(['like', 'pendaftaran.nama', $nama]);
+            }
+
+            if ($level === 'pkd' || $level === 'hq') {
+                $klinik = $_POST['klinik'];
+                $arr['klinik'] = $klinik;
+                if ($klinik !== '0') {
+                    $q->andWhere(['=', 'id_klinik', $klinik]);
+                }
+            }
+            
+            if (isset($_POST['sekolah'])) {
+                $sek = $_POST['sekolah'];
+                $arr['sek'] = $sek;
+                if ($sek !== '0') {
+                    $q->andWhere(['=', 'id_sekolah', $sek]);
+                }
+            }
+            
+            // list semua data dibawah sesuatu PKD
+            if ($level === 'hq') {
+                $pkd = $_POST['pkd'];
+                $arr['pkd'] = $pkd;
+                if ($pkd !== '0' && $klinik === '0') {
+                    $q->andWhere(['id_pkd' => $pkd]);
+                }
+            }
+            
+            // search by date from .. to
+            $tkh_dari = $_POST['tkh_dari'];
+            $tkh_hingga = $_POST['tkh_hingga'];
+            $arr['tkh_dari'] = $tkh_dari;
+            $arr['tkh_hingga'] = $tkh_hingga;
+            if (!empty($tkh_dari) && !empty($tkh_hingga)) {
+                $q->andWhere(['>=', 'created_dt', $tkh_dari . ' 00:00:00']);
+                $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
+            }
+    
+            // status ujian
+            $status = '0';
+            if ($_POST['status_ujian'] !== '0') {
+                $status = $_POST['status_ujian'];
+                $q->leftJoin('kaunseling', 'pendaftaran.id = kaunseling.id_pendaftaran');
+                $q->andWhere(['=', 'kaunseling.telah_kaunseling', $status]);
+            }
+    
+            // diagnosis sementara
+            $id = '0';
+            if ($_POST['id_diag_sementara'] !== '0') {
+                $id = $_POST['id_diag_sementara'];
+                $q->leftJoin('ujian_saringan', 'pendaftaran.id = ujian_saringan.id_pendaftaran');
+                $q->andWhere(['=', 'ujian_saringan.id_diag_sementara', $id]);
+            }
+
+            $arr['nokp'] = $nokp;
+            $arr['nama'] = $nama;
+            $arr['status_ujian'] = $status;
+            $arr['id_diag_sementara'] = $id;
+
+            \Yii::$app->session['query'] = $q;
+            \Yii::$app->session['arr'] = $arr;
+        } else if (isset($_GET['page'])) {
+            // click on pagination
+            $q = \Yii::$app->session['query'];
+            $arr = \Yii::$app->session['arr'];
+        } else {
+            // klik directly dari menu ke list or bila save pendaftaran
+            if (! isset($_POST['nokp'])) {
+                $q->andWhere(['like', 'created_dt', date('Y-m-d')]);
+                $pagination = new Pagination(['totalCount' => $q->count()]);
+                $pagination->pageSize = 5;
+                $data = $q->offset($pagination->offset)
+                    ->limit($pagination->limit)->all();
+                $arr['dat'] = $data;
+                $arr['pagination'] = $pagination;
+                return $this->render('list', $arr);
             }
         }
-        
-        if (isset($_POST['sekolah'])) {
-            $sek = $_POST['sekolah'];
-            $arr['sek'] = $sek;
-            if ($sek !== '0') {
-                $q->andWhere(['=', 'id_sekolah', $sek]);
-            }
-        }
-        
-        // list semua data dibawah sesuatu PKD
-        if ($level === 'hq') {
-            $pkd = $_POST['pkd'];
-            $arr['pkd'] = $pkd;
-            if ($pkd !== '0' && $klinik === '0') {
-                $q->andWhere(['id_pkd' => $pkd]);
-            }
-        }
-        
-        // search by date from .. to
-        $tkh_dari = $_POST['tkh_dari'];
-        $tkh_hingga = $_POST['tkh_hingga'];
-        $arr['tkh_dari'] = $tkh_dari;
-        $arr['tkh_hingga'] = $tkh_hingga;
-        if (!empty($tkh_dari) && !empty($tkh_hingga)) {
-            $q->andWhere(['>=', 'created_dt', $tkh_dari . ' 00:00:00']);
-            $q->andWhere(['<=', 'created_dt', $tkh_hingga . ' 23:59:59']);
-        }
 
-        // status ujian
-        $status = '0';
-        if ($_POST['status_ujian'] !== '0') {
-            $status = $_POST['status_ujian'];
-            $q->leftJoin('kaunseling', 'pendaftaran.id = kaunseling.id_pendaftaran');
-            $q->andWhere(['=', 'kaunseling.telah_kaunseling', $status]);
-        }
-
-        // diagnosis sementara
-        $id = '0';
-        if ($_POST['id_diag_sementara'] !== '0') {
-            $id = $_POST['id_diag_sementara'];
-            $q->leftJoin('ujian_saringan', 'pendaftaran.id = ujian_saringan.id_pendaftaran');
-            $q->andWhere(['=', 'ujian_saringan.id_diag_sementara', $id]);
-        }
-
-        echo $q->createCommand()->getRawSql();
+        //echo $q->createCommand()->getRawSql();
         
         $pagination = new Pagination(['totalCount' => $q->count()]);
         $pagination->pageSize = 5;
         $data = $q->offset($pagination->offset)->limit($pagination->limit)->all();
         $arr['dat'] = $data;
-        $arr['nokp'] = $nokp;
-        $arr['nama'] = $nama;
-        $arr['status_ujian'] = $status;
-        $arr['id_diag_sementara'] = $id;
         $arr['pagination'] = $pagination;
         return $this->render('list', $arr);
     }

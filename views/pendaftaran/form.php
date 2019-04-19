@@ -19,7 +19,7 @@ if (isset($salah)) {
         <div class="col col-sm-2">Nama</div>
         <div class="col col-sm"><input type="text" name="nama" value="<?= $dat->nama ?>" class="form-control"></div>
         <div class="col col-sm-2">No KP</div>
-        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="text" maxlength="12" name="nokp" id="nokp" value="<?= $dat->nokp ?>" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col col-sm-2">Kebenaran Bertulis</div>
@@ -41,7 +41,7 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col col-sm-2">Tarikh Lahir</div>
-        <div class="col col-sm"><input type="date" name="tkh_lahir" value="<?= $dat->tkh_lahir ?>" class="form-control"></div>
+        <div class="col col-sm"><input type="date" name="tkh_lahir" id="tkh_lahir" value="<?= $dat->tkh_lahir ?>" class="form-control"></div>
         <div class="col col-sm-2">Umur</div>
         <div class="col col-sm">
             <input type="text" id="umur" value="<?= $dat->umur ?>" class="form-control" disabled>
@@ -102,11 +102,19 @@ if (isset($salah)) {
                 $('#kes_indeks').hide();
             }
         }
+
+        $('#nokp').blur(function() {
+            var nokp = $(this).val();
+            var year = parseInt(nokp.substring(0,2)) + 2000;
+            var month = nokp.substring(2,4);
+            var day = nokp.substring(4,6);
+            console.log("year = " + year + " month = " + month + " day = " + day);
+            $('#tkh_lahir').val(year + '-' + month + '-' + day);
+        });
         
         $('[name=kump_etnik]').change(function () {
             var val = $(this).val();
-            $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val +
-                    '&id_pecahan=<?= $dat->pecahan_etnik ?>');
+            $('#my-etnik').load('index.php?r=pendaftaran/pecahan&id=' + val + '&id_pecahan=<?= $dat->pecahan_etnik ?>');
         });
 
         $('[name=kump_etnik]').trigger('change'); // trigger change event auto

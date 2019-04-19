@@ -49,12 +49,13 @@ class UjianPengesahanController extends \yii\web\Controller {
         $ujian->tkh_hbkeputusan = $_POST['tkh_hbkeputusan'];
         $ujian->kod_hbkeputusan = $_POST['kod_hbkeputusan'];
         
-        if($ujian->kod_hbkeputusan == 2) {
-            // n
+        if($_POST['diag_molekular2'] === 'TIDAK') {
+            // perlu diagnosa molekular == TIDAK
             $ujian->tkh_dnahantar = null;
             $ujian->tkh_dnakeputusan = null;
             $ujian->kod_dnakeputusan = null;
         } else {
+            // perlu diagnosa molekular == YA
             $ujian->tkh_dnahantar = $_POST['tkh_dnahantar'];
             $ujian->tkh_dnakeputusan = $_POST['tkh_dnakeputusan'];
             $ujian->kod_dnakeputusan = $_POST['kod_dnakeputusan'];

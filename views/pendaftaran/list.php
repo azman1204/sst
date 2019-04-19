@@ -28,9 +28,9 @@ $user = \Yii::$app->user->identity;
             <div class="col col-md-4"><input value="<?= $nama ?>" type="text" name="nama" class="form-control"></div>
         </div>
         <?php
-        if ($user->level === 'hq') {
+        if ($user->level === 'HQ') {
             echo $this->render('cari_hq', ['pkd' =>$pkd, 'klinik'=>$klinik, 'sek'=>$sek]);
-        } else if ($user->level === 'pkd') {
+        } else if ($user->level === 'PKD') {
             echo $this->render('cari_pkd',['klinik'=>$klinik, 'sek'=>$sek]);
         } else {
             echo $this->render('cari_klinik', ['sek2' =>$sek]);
@@ -99,6 +99,7 @@ $user = \Yii::$app->user->identity;
             </tr>
             <tr>
                 <th>Bil</th>
+                <th>Tindakan</th>
                 <?php if ($user-> level === 'klinik') { ?><th>Tindakan</th><?php } ?>
                 <th>Nama</th>
                 <th>No KP</th>
@@ -191,8 +192,8 @@ $user = \Yii::$app->user->identity;
             }
             ?>
             <tr>
-                <td><?= $bil++ ?></td>
-                <td>
+                <td><?= $bil++ ?>.</td>
+                <td align='center'>
                     <a href="index.php?r=pendaftaran/edit&id=<?= $data->id ?>" class="fa fa-pencil"></a>
                     <?php if ($user-> level === 'KLINIK') { ?>
                     <a href="index.php?r=pendaftaran/delete&id=<?= $data->id ?>" class="fa fa-trash delete"></a>

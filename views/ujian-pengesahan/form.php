@@ -27,7 +27,10 @@ if (isset($salah)) {
     </div>
     <div class="row">
         <div class="col-sm-1">Perlu Diagnosa Molekular</div>
-        <div class="col-sm-4"><input type="text" id="diag_molekular" value="" class="form-control" disabled=""></div>
+        <div class="col-sm-4">
+            <input type="text" id="diag_molekular" value="" class="form-control" disabled="">
+            <input type="hidden" id="diag_molekular2" name="diag_molekular2" value="">
+        </div>
     </div>
     
     <b>DNA ANALYSIS</b>
@@ -71,6 +74,7 @@ $(function() {
             }
                 
             $('#diag_molekular').val(perlu);
+            $('#diag_molekular2').val(perlu);
             //$('#diag_akhir').val(data.diag_akhir);
         });
     }
