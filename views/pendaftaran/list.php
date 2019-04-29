@@ -101,17 +101,17 @@ $user = \Yii::$app->user->identity;
                 <th>Bil</th>
                 <th>Tindakan</th>
                 <?php if ($user-> level === 'klinik') { ?><th>Tindakan</th><?php } ?>
-                <th>Nama</th>
+                <th><a href='index.php?r=pendaftaran/list&ob=nama'>Nama</a></th>
                 <th>No KP</th>
-                <th>Kebenaran Bertulis</th>
+                <th><a href='index.php?r=pendaftaran/list&ob=kebenaran'>Kebenaran Bertulis</a></th>
                 <th>Alamat</th>
                 <th>Tel</th>
-                <th>Jantina</th>
+                <th><a href='index.php?r=pendaftaran/list&ob=jantina'>Jantina</a></th>
                 <th>Tarikh Lahir</th>
                 <th>Umur</th>
-                <th>Nama Sekolah</th>
-                <th>Klinik Kesihatan</th>
-                <th>Kumpulan Etnik</th>
+                <th><a href='index.php?r=pendaftaran/list&ob=id_sekolah'>Nama Sekolah</a></th>
+                <th><a href='index.php?r=pendaftaran/list&ob=id_klinik'>Klinik Kesihatan</a></th>
+                <th><a href='index.php?r=pendaftaran/list&ob=kump_etnik'>Kumpulan Etnik</a></th>
                 <th>Pecahan Etnik</th>
                 <th>Nama</th>
                 <th>No KP</th>

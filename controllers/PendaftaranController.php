@@ -80,7 +80,7 @@ class PendaftaranController extends \yii\web\Controller {
         $p->alamat = $_POST['alamat'];
         $p->kump_etnik = $_POST['kump_etnik'];
         $p->umur = $_POST['umur'];
-        $p->tahun_reten = $_POST['tahun_reten'];
+        //$p->tahun_reten = $_POST['tahun_reten'];
         
         if (isset($_POST['kes_indeks'])) {
             $p->kes_indeks = 'Y';
@@ -237,6 +237,9 @@ class PendaftaranController extends \yii\web\Controller {
                 $q->andWhere(['=', 'ujian_saringan.id_diag_sementara', $id]);
             }
 
+            $q->orderBy('nama');
+            $ob = 'nama';
+
             $arr['nokp'] = $nokp;
             $arr['nama'] = $nama;
             $arr['status_ujian'] = $status;
@@ -244,16 +247,23 @@ class PendaftaranController extends \yii\web\Controller {
 
             \Yii::$app->session['query'] = $q;
             \Yii::$app->session['arr'] = $arr;
-        } else if (isset($_GET['page'])) {
-            // click on pagination
+        } else if (isset($_GET['page']) || isset($_GET['ob'])) {
+            // click on pagination or order by
             $q = \Yii::$app->session['query'];
             $arr = \Yii::$app->session['arr'];
+            if(isset($_GET['ob'])) {
+                $q->orderBy($_GET['ob']);
+                $ob = $_GET['ob'];
+            }
         } else {
             // klik directly dari menu ke list or bila save pendaftaran
             if (! isset($_POST['nokp'])) {
                 $q->andWhere(['like', 'created_dt', date('Y-m-d')]);
+                $q->orderBy('nama');
+                $ob = 'nama';
                 $pagination = new Pagination(['totalCount' => $q->count()]);
                 $pagination->pageSize = 5;
+                $pagination->params = ['ob' => $ob];
                 $data = $q->offset($pagination->offset)
                     ->limit($pagination->limit)->all();
                 $arr['dat'] = $data;
