@@ -68,11 +68,29 @@ $(function() {
 <form action='' method='post' style='background-color:#eee; padding:4px;border:1px solid #ddd;'>
     <input type="hidden" name="_csrf" value="<?= \Yii::$app->request->csrfToken ?>">
     <div class="form-row">
+
         <div class="col col-md-1">
-            Tahun
+            Tahun Dari
             <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
-            <?= yii\helpers\Html::dropDownList('tahun',$tahun, app\models\Rujukan::dd('tahun'), ['class'=>'form-control']) ?>
+            <?= yii\helpers\Html::dropDownList('tahun_dari', $tahun_dari, app\models\Rujukan::dd('tahun'), ['class'=>'form-control']) ?>
         </div>
+        <div class="col col-md-1">
+            Bulan Dari
+            <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
+            <?= app\mylib\Util::month_list('bulan_dari', $bulan_dari) ?>
+        </div>
+
+        <div class="col col-md-1">
+            Tahun Hingga
+            <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
+            <?= yii\helpers\Html::dropDownList('tahun_hingga', $tahun_hingga, app\models\Rujukan::dd('tahun'), ['class'=>'form-control']) ?>
+        </div>
+        <div class="col col-md-1">
+            Bulan Hingga
+            <? //= \app\mylib\Util::year_list('tahun', $tahun) ?>
+            <?= app\mylib\Util::month_list('bulan_hingga', $bulan_hingga) ?>
+        </div>
+
         <?php if ($usr_level == 'HQ') : ?>
             <div class="col">
                 Pejabat Kesihatan Daerah

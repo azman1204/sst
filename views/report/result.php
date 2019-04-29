@@ -109,9 +109,7 @@
         $where['id_sekolah'] = $sekolah;
     }
 
-    if($tahun !== '') {
-        $where['tahun_reten'] = $tahun;
-    }
+    
 
     if($pks !== null && $pks !== '0') {
         $where['id_klinik'] = $pks;
@@ -122,15 +120,23 @@
     }
     
     $query = new \yii\db\Query();
-    $rows_enrolment = $query
+    $query = $query
     ->select(['kump_etnik', 'jantina', 'id_klinik', 'COUNT(*) AS cnt'])
     ->from('pendaftaran p')
     ->join('LEFT JOIN', 'klinik k', 'p.id_klinik = k.id')
+    ->join('LEFT JOIN', 'ujian_saringan u', 'p.id = u.id_pendaftaran')
     ->where($where)
-    ->groupBy(['kump_etnik', 'jantina', 'id_klinik'])
-    ->all();
+    ->groupBy(['kump_etnik', 'jantina', 'id_klinik']);
+
+    if($ym_dari !== '2019-01-01') {
+        //echo $ym_dari;
+        $query->where([ 'between', 'u.tkh_ujian', $ym_dari, $ym_hingga]);
+    }
+
+    $rows_enrolment = $query->all();
+
     $command = $query->createCommand();
-    //echo $command->sql;
+    //echo $command->sql;//exit;
 
     $tot_enrolment = tot_enrolment($rows_enrolment);
     if ($tot_enrolment == 0) {

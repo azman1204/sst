@@ -15,7 +15,7 @@ class Util {
         return $str;
     }
 
-    static function month_list($name) {
+    static function month_list($name, $value = '') {
         $str = "<select name='$name' class='form-control'>";
         $str .= "<option value='0'>--Sila Pilih--</option>";
         $arr = [
@@ -32,7 +32,8 @@ class Util {
             'Nov' => '11', 
             'Dec' => '12'];
         foreach ($arr as $key => $val) {
-            $str .= "<option value='$val'>$key</option>";
+            $s = $val == $value ? 'selected' : '';
+            $str .= "<option value='$val' $s>$key</option>";
         }
         $str .= "</select>";
         return $str;

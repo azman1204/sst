@@ -7,7 +7,19 @@ class ReportController extends \yii\web\Controller {
         $request = \Yii::$app->request;
         $arr['sekolah'] = $request->post('sekolah');
         $arr['pkd'] = $request->post('pkd');
-        $arr['tahun'] = $request->post('tahun');
+
+        $tahun_dari = $request->post('tahun_dari', '2019');
+        $bulan_dari = $request->post('bulan_dari', '01');
+        $arr['ym_dari'] = $tahun_dari . '-' . $bulan_dari . '-01';
+        $arr['tahun_dari'] = $tahun_dari;
+        $arr['bulan_dari'] = $bulan_dari;
+
+        $tahun_hingga = $request->post('tahun_hingga', '2019');
+        $bulan_hingga = $request->post('bulan_hingga', '12');
+        $arr['ym_hingga'] = $tahun_hingga . '-' . $bulan_hingga . '-31';
+        $arr['tahun_hingga'] = $tahun_hingga;
+        $arr['bulan_hingga'] = $bulan_hingga;
+
         $arr['pks'] = $request->post('pks');
         $user = \Yii::$app->user->identity;
         $usr_level = $user->level;
@@ -46,11 +58,13 @@ class ReportController extends \yii\web\Controller {
 
     function actionCetak() {
         $arr = $this->getData();
+        //\var_dump($arr);
         $util = \app\models\Util::find()->where(['user_id' => \Yii::$app->user->identity->user_id])->one();
         $arr['result'] = $util->report;
         return $this->renderPartial('cetak', $arr);
     }
 
+    // search data base on previous post
     private function getData() {
         $arr = \Yii::$app->session->get('arr');
         if(isset($arr['pkd']) && $arr['pkd'] !== '0'){
@@ -71,7 +85,7 @@ class ReportController extends \yii\web\Controller {
             $sekolah = new \app\models\Sekolah();
         }
         //\var_dump($arr);exit;
-        return ['pkd' => $pkd, 'klinik' => $klinik, 'sekolah' => $sekolah, 'tahun' => $arr['tahun']];
+        return ['pkd' => $pkd, 'klinik' => $klinik, 'sekolah' => $sekolah, 'ym_dari' => $arr['ym_dari'], 'ym_hingga' => $arr['ym_hingga']];
     }
 
     function actionExcel() {

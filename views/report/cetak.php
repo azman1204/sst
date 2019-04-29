@@ -13,7 +13,7 @@
     <br>
     <div class="row">
         <div class="col-md-8"><b>Pejabat Kesihatan / Klinik Kesihatan / Sekolah :</b> <?=$pkd->keterangan?> / <?=$klinik->nama?> /  <?=$sekolah->nama?></div>
-        <div class="col-md-4"><b>Tahun :</b> <?=$tahun?></div>
+        <div class="col-md-4"><b>Tahun :</b> <?= $ym_dari ?> - <?= $ym_hingga ?></div>
     </div>
     <?=$result?>
     </div>
